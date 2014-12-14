@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/container"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".QuestionActivity"
+             tools:ignore="MergeRootFrame">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left|top"
+            android:layout_margin="16dp">
+        <FrameLayout
+                android:id="@+id/statsPlaceholder"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp">
+        </FrameLayout>
+        <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Some question"
+                android:background="#ffffffd4" android:padding="16dp"/>
+        <FrameLayout
+                android:id="@+id/answerPlaceholder"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+        </FrameLayout>
+
+    </LinearLayout>
+</FrameLayout>
