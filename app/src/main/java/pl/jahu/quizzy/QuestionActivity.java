@@ -18,10 +18,6 @@ public class QuestionActivity extends Activity implements AnswerFragment.OnFragm
 
     public static final String LOG_TAG = "Quizzy_QuestionActivity";
 
-    private static final String ANDROID_APIS_CATEGORY = "Android APIs";
-    private static final String ANDROID_VERSIONS_CATEGORY = "Android versions";
-    private static final String ANDROID_CODENAMES_CATEGORY = "Android codenames";
-
     private StatsFragment statsFragment;
     private AnswerFragment answerFragment;
     private TextView questionTextView;
@@ -35,47 +31,6 @@ public class QuestionActivity extends Activity implements AnswerFragment.OnFragm
 
     public QuestionActivity() {
         this.allQuestions = new ArrayList<>();
-
-        allQuestions.add(new Question("API 1", "Apple Pie\n1.0", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 2", "Banana Bread\n1.1", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 3", "Cupcake\n1.5", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 4", "Donut\n1.6", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 5-7", "Eclair\n2.0-2.1", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 8", "Froyo\n2.2", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 9-10", "Gingerbread\n2.3", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 11-13", "Honeycomb\n3.0-3.2", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 14-15", "Ice Cream Sandwitch\n4.0", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 16-18", "Jelly Bean\n4.1-4.3", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 19", "KitKat\n4.4", ANDROID_APIS_CATEGORY));
-        allQuestions.add(new Question("API 20-21", "Lollipop\n5.0", ANDROID_APIS_CATEGORY));
-
-
-        allQuestions.add(new Question("Apple Pie", "1.0\nAPI 1", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Banana Bread", "1.1\nAPI 2", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Cupcake", "1.5\nAPI 3", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Donut", "1.6\nAPI 4", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Eclair", "2.0-2.1\nAPI 5-7", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Froyo", "2.2\nAPI 8", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Gingerbread", "2.3\nAPI 9-10", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Honeycomb", "3.0-3.2\nAPI 11-13", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Ice Cream Sandwitch", "4.0\nAPI 14-15", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Jelly Bean", "4.1-4.3\nAPI 16-18", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("KitKat", "4.4\nAPI 19", ANDROID_CODENAMES_CATEGORY));
-        allQuestions.add(new Question("Lollipop", "5.0\nAPI 20-21", ANDROID_CODENAMES_CATEGORY));
-
-
-        allQuestions.add(new Question("1.0", "Apple Pie\nAPI 1", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("1.1", "Banana Bread\nAPI 2", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("1.5", "Cupcake\nAPI 3", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("1.6", "Donut\nAPI 4", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("2.0-2.1", "Eclair\nAPI 5-7", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("2.2", "Froyo\nAPI 8", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("2.3", "Gingerbread\nAPI 9-10", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("3.0-3.2", "Honeycomb\nAPI 11-13", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("4.0", "Ice Cream Sandwitch\nAPI 14-15", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("4.1-4.3", "Jelly Bean\nAPI 16-18", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("4.4", "KitKat\nAPI 19", ANDROID_VERSIONS_CATEGORY));
-        allQuestions.add(new Question("5.0", "Lollipop\nAPI 20-21", ANDROID_VERSIONS_CATEGORY));
 
         roundNumber = 0;
         correctAnswersCount = 0;

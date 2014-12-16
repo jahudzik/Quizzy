@@ -7,9 +7,9 @@ public class Question {
 
     private final String answer;
 
-    private final String category;
+    private final Category category;
 
-    public Question(String question, String answer, String category) {
+    public Question(String question, String answer, Category category) {
         this.question = question;
         this.answer = answer;
         this.category = category;
@@ -23,7 +23,7 @@ public class Question {
         return answer;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
