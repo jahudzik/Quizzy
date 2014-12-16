@@ -4,11 +4,15 @@ package pl.jahu.quizzy.models;
 public class Question {
 
     private final String question;
+
     private final String answer;
 
-    public Question(String question, String answer) {
+    private final String category;
+
+    public Question(String question, String answer, String category) {
         this.question = question;
         this.answer = answer;
+        this.category = category;
     }
 
     public String getQuestion() {
@@ -19,6 +23,10 @@ public class Question {
         return answer;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -26,7 +34,9 @@ public class Question {
         }
         if (obj instanceof Question) {
             Question other = (Question)obj;
-            return (question.equals(other.question) && answer.equals(other.answer));
+            return (question.equals(other.question)
+                    && answer.equals(other.answer)
+                    && category.equals(other.category) );
         }
         return false;
     }
@@ -36,6 +46,7 @@ public class Question {
         int result = 17;
         result = 31 * result + question.hashCode();
         result = 31 * result + answer.hashCode();
+        result = 31 * result + category.hashCode();
         return result;
     }
 
