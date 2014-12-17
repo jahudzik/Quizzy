@@ -9,8 +9,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import pl.jahu.quizzy.app.R;
-import pl.jahu.quizzy.fragments.AnswerFragment;
-import pl.jahu.quizzy.fragments.StatsFragment;
+import pl.jahu.quizzy.ui.AnswerFragment;
+import pl.jahu.quizzy.ui.QuizActivity;
+import pl.jahu.quizzy.ui.StatsFragment;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

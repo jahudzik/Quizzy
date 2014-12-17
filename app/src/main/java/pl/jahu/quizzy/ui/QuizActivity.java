@@ -1,4 +1,4 @@
-package pl.jahu.quizzy;
+package pl.jahu.quizzy.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
-import pl.jahu.quizzy.fragments.AnswerFragment;
-import pl.jahu.quizzy.fragments.StatsFragment;
+import pl.jahu.quizzy.ui.AnswerFragment;
+import pl.jahu.quizzy.ui.StatsFragment;
 import pl.jahu.quizzy.models.Question;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package pl.jahu.quizzy.fragments;
+package pl.jahu.quizzy.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
