@@ -14,7 +14,7 @@ import pl.jahu.quizzy.models.Question;
 import java.util.*;
 
 
-public class QuestionActivity extends Activity implements AnswerFragment.OnFragmentInteractionListener {
+public class QuizActivity extends Activity implements AnswerFragment.OnFragmentInteractionListener {
 
     public static final String LOG_TAG = "Quizzy_QuestionActivity";
 
@@ -29,7 +29,7 @@ public class QuestionActivity extends Activity implements AnswerFragment.OnFragm
     private int correctAnswersCount;
     private int wrongAnswersCount;
 
-    public QuestionActivity() {
+    public QuizActivity() {
         this.allQuestions = new ArrayList<>();
 
         roundNumber = 0;
@@ -44,7 +44,7 @@ public class QuestionActivity extends Activity implements AnswerFragment.OnFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
+        setContentView(R.layout.activity_quiz);
         questionTextView = (TextView) findViewById(R.id.questionTextView);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
