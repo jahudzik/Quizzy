@@ -4,6 +4,8 @@ import pl.jahu.quizzy.models.Category;
 import pl.jahu.quizzy.models.Question;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Quzzy
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public interface DataProvider {
 
-    public List<Category> getAllCategories();
+    public Map<Category, Integer> getCategories();
 
     public List<Question> getQuestionsByCategories(List<Category> categories);
 
