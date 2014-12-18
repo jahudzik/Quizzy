@@ -4,9 +4,11 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.utils.Constants;
@@ -45,7 +47,7 @@ public class SetupFragment extends ListFragment {
     }
 
 
-    private class CategoryListAdapter extends ArrayAdapter<String> {
+    private class CategoryListAdapter extends ArrayAdapter<String> implements View.OnTouchListener {
 
 
         public CategoryListAdapter(Context context, List<String> items) {
@@ -60,7 +62,19 @@ public class SetupFragment extends ListFragment {
             String category = getItem(position);
             nameLabel.setText(category);
             sizeLabel.setText("(" + stats.get(category)[Constants.DIFFICULTY_LEVEL_ALL] + ")");
+            row.setOnTouchListener(this);
             return row;
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    categoryChosenCheckBox.setChecked(!categoryChosenCheckBox.isChecked());
+                    break;
+            }
+            return true;
         }
     }
 
