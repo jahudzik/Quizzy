@@ -10,8 +10,8 @@
         android:name="pl.jahu.quizzy.QuizzyApplication">
 
         <activity
-            android:name="pl.jahu.quizzy.ui.QuizActivity"
-            android:label="@string/app_name" >
+                android:name="pl.jahu.quizzy.ui.SetupActivity"
+                android:label="@string/title_activity_setup" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pl.jahu.quizzy.ui.SetupActivity"
-            android:label="@string/title_activity_setup" >
+            android:name="pl.jahu.quizzy.ui.QuizActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 
