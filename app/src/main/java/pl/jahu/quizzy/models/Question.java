@@ -3,6 +3,8 @@ package pl.jahu.quizzy.models;
 
 public class Question {
 
+    private final int id;
+
     private final String question;
 
     private final String answer;
@@ -13,12 +15,21 @@ public class Question {
 
     private int correctAnswersCount;
 
-    public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+    public Question(int id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+        this.id = id;
         this.question = question;
         this.answer = answer;
         this.category = category;
         this.allAnswersCount = allAnswersCount;
         this.correctAnswersCount = correctAnswersCount;
+    }
+
+    public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+        this(-1, question, answer, category, allAnswersCount, correctAnswersCount);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getQuestion() {
@@ -31,6 +42,14 @@ public class Question {
 
     public String getCategory() {
         return category;
+    }
+
+    public int getAllAnswersCount() {
+        return allAnswersCount;
+    }
+
+    public int getCorrectAnswersCount() {
+        return correctAnswersCount;
     }
 
     public int getDifficultValue() {
