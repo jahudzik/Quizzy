@@ -32,7 +32,7 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                                                                                 ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                                                                 QUESTION_COLUMN + " TEXT, " +
                                                                                 ANSWER_COLUMN + " TEXT, " +
-                                                                                CATEGORY_COLUMN + " TEXT" +
+                                                                                CATEGORY_COLUMN + " TEXT, " +
                                                                                 ALL_ANSWERS_COUNT_COLUMN + " INTEGER, " +
                                                                                 CORRECT_ANSWERS_COLUMN + " INTEGER)";
     private static final String SELECT_ALL_QUESTIONS_QUERY = "SELECT * FROM " + QUESTIONS_TABLE;
@@ -68,8 +68,7 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public void insertQuestions(List<Question> questions) {
-        SQLiteDatabase db = getWritableDatabase();
+    public void insertQuestions(SQLiteDatabase db, List<Question> questions) {
         db.beginTransaction();
         try {
             for (Question question : questions) {
@@ -82,8 +81,7 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                 db.insert(QUESTIONS_TABLE, null, cv);
             }
             db.setTransactionSuccessful();
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }

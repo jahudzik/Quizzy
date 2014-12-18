@@ -45,7 +45,7 @@ public class QuizzyTestDatabase extends QuizzyDatabase {
     @Override
     public void onCreate(SQLiteDatabase db) {
         super.onCreate(db);
-        insertQuestions(QUESTIONS);
+        insertQuestions(db, QUESTIONS);
     }
 
 }
