@@ -6,8 +6,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import pl.jahu.quizzy.app.R;
+import pl.jahu.quizzy.providers.QuizzyDatabase;
 
-public class SetupActivity extends Activity {
+import javax.inject.Inject;
+
+public class SetupActivity extends BaseActivity {
+
+    @Inject
+    QuizzyDatabase quizzyDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

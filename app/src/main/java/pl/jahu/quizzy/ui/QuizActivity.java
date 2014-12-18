@@ -1,20 +1,17 @@
 package pl.jahu.quizzy.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
-import pl.jahu.quizzy.ui.AnswerFragment;
-import pl.jahu.quizzy.ui.StatsFragment;
 import pl.jahu.quizzy.models.Question;
 
 import java.util.*;
 
 
-public class QuizActivity extends Activity implements AnswerFragment.OnFragmentInteractionListener {
+public class QuizActivity extends BaseActivity implements AnswerFragment.OnFragmentInteractionListener {
 
     public static final String LOG_TAG = "Quizzy_QuestionActivity";
 
