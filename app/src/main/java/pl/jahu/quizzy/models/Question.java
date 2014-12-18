@@ -7,12 +7,18 @@ public class Question {
 
     private final String answer;
 
-    private final Category category;
+    private final String category;
 
-    public Question(String question, String answer, Category category) {
+    private int allAnswersCount;
+
+    private int correctAnswersCount;
+
+    public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
         this.question = question;
         this.answer = answer;
         this.category = category;
+        this.allAnswersCount = allAnswersCount;
+        this.correctAnswersCount = correctAnswersCount;
     }
 
     public String getQuestion() {
@@ -23,8 +29,12 @@ public class Question {
         return answer;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
+    }
+
+    public int getDifficultValue() {
+        return correctAnswersCount / (allAnswersCount * 100);
     }
 
     @Override
