@@ -45,13 +45,14 @@ public class SetupActivity extends BaseActivity {
             }
             Integer[] stats = result.get(category);
             stats[Constants.DIFFICULTY_LEVEL_ALL]++;
-            if (question.getDifficultValue() < 75) {
+            int difficultValue = question.getDifficultValue();
+            if (difficultValue < 75) {
                 stats[Constants.DIFFICULTY_LEVEL_BELOW_75]++;
             }
-            if (question.getDifficultValue() < 50) {
+            if (difficultValue < 50) {
                 stats[Constants.DIFFICULTY_LEVEL_BELOW_50]++;
             }
-            if (question.getDifficultValue() < 25) {
+            if (difficultValue < 25) {
                 stats[Constants.DIFFICULTY_LEVEL_BELOW_25]++;
             }
             result.put(category, stats);

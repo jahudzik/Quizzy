@@ -53,7 +53,7 @@ public class Question {
     }
 
     public int getDifficultValue() {
-        return correctAnswersCount / (allAnswersCount * 100);
+        return (correctAnswersCount * 100) / allAnswersCount;
     }
 
     @Override
