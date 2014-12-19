@@ -13,14 +13,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
+            android:text="@string/sample_text"
             android:id="@+id/categoryNameLabel"
             android:layout_toRightOf="@+id/categoryChosenCheckBox"/>
     <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="0"
+            android:text="@string/sample_number"
             android:id="@+id/categorySizeLabel"
             android:layout_alignParentEnd="true"/>
 </RelativeLayout>

@@ -15,15 +15,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#ffd4ffdf"
-                android:text="Correct:"
-                android:id="@+id/correctCountLabel" android:padding="2dp"/>
+                android:text="@string/questions_left"
+                android:id="@+id/correctCountLabel"
+                android:padding="2dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ffd4ffdf"
-                android:text="X/X"
-                android:id="@+id/correctCountValue" android:padding="2dp"/>
+                android:text="@string/sample_number"
+                android:id="@+id/correctCountValue"
+                android:padding="2dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,14 +36,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#ffffd9d4"
-                android:text="Incorrect:"
-                android:id="@+id/wrongCountLabel" android:padding="2dp"/>
+                android:text="@string/incorrect_answer"
+                android:id="@+id/wrongCountLabel"
+                android:padding="2dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ffffd9d4"
-                android:text="X"
-                android:id="@+id/wrongCountValue" android:padding="2dp"/>
+                android:text="@string/sample_number"
+                android:id="@+id/wrongCountValue"
+                android:padding="2dp"/>
     </LinearLayout>
 </FrameLayout>

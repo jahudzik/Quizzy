@@ -23,8 +23,8 @@
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Some question"
-                android:background="#ffffffd4" android:padding="16dp"/>
+                android:background="#ffffffd4"
+                android:padding="16dp"/>
         <FrameLayout
                 android:id="@+id/answerPlaceholder"
                 android:layout_width="fill_parent"
