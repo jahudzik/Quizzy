@@ -15,6 +15,20 @@
             android:layout_height="0dp"
             android:layout_weight="7" />
 
+    <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficultBar"
+            android:max="3"
+            android:progress="0"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/difficultInfoLabel"
+            android:layout_weight="1" />
+
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
@@ -39,13 +53,6 @@
 
     </RelativeLayout>
 
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text=""
-            android:id="@+id/setupSummaryTextView"
-            android:layout_weight="1" />
     <Button
             android:layout_width="fill_parent"
             android:layout_height="0dp"

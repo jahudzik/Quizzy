@@ -8,10 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
+import android.widget.*;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.utils.Constants;
 
@@ -23,7 +20,7 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SetupFragment extends ListFragment {
+public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener {
 
     private static final int MARK_COLOR = Color.rgb(81, 171, 240);
 
@@ -33,6 +30,7 @@ public class SetupFragment extends ListFragment {
     private int total = 0;
 
     private TextView totalLabel;
+    private TextView diffInfoLabel;
     private Button startButton;
 
     public SetupFragment() {
@@ -44,17 +42,71 @@ public class SetupFragment extends ListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
         totalLabel = (TextView) rootView.findViewById(R.id.totalCountLabel);
+        diffInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
         startButton = (Button) rootView.findViewById(R.id.startQuizButton);
 
         categories.addAll(stats.keySet());
         Collections.sort(categories);
         setListAdapter(new CategoryListAdapter(inflater.getContext(), categories));
 
+        SeekBar difficultBar = (SeekBar) rootView.findViewById(R.id.difficultBar);
+        difficultBar.setOnSeekBarChangeListener(this);
+
+        updateDifficultInfoLabel("All questions", Color.GREEN);
         return rootView;
+    }
+
+    private void updateDifficulty() {
+        switch (diffLevel) {
+            case Constants.DIFFICULTY_LEVEL_ALL:
+                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_all), Color.GREEN);
+                break;
+            case Constants.DIFFICULTY_LEVEL_BELOW_75:
+                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_75), Color.rgb(235, 235, 95));
+                break;
+            case Constants.DIFFICULTY_LEVEL_BELOW_50:
+                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_50), Color.rgb(255, 179, 0));
+                break;
+            case Constants.DIFFICULTY_LEVEL_BELOW_25:
+                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_25), Color.RED);
+                break;
+        }
+
+        ListView listView = getListView();
+        total = 0;
+        for (int i = 0; i < listView.getChildCount(); i++) {
+            View rowView = listView.getChildAt(i);
+            TextView sizeLabel = (TextView) rowView.findViewById(R.id.categorySizeLabel);
+            CheckBox chosenCheckBox = (CheckBox) rowView.findViewById(R.id.categoryChosenCheckBox);
+            int questionsCount = stats.get(categories.get(i))[diffLevel];
+            sizeLabel.setText(String.valueOf(questionsCount));
+            if (chosenCheckBox.isChecked()) {
+                total += questionsCount;
+            }
+        }
+        totalLabel.setText(String.valueOf(total));
+    }
+
+    private void updateDifficultInfoLabel(String message, int color) {
+        diffInfoLabel.setText(message);
+        diffInfoLabel.setTextColor(color);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        diffLevel = progress;
+        updateDifficulty();
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
 
