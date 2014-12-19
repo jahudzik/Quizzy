@@ -34,7 +34,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private int actualLevel = Constants.DIFFICULTY_LEVEL_ALL;
     private int totalQuestionsNumber = 0;
 
-    private TextView totalLabel;
     private TextView levelInfoLabel;
     private Button startButton;
 
@@ -49,7 +48,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
-        totalLabel = (TextView) rootView.findViewById(R.id.totalCountLabel);
         levelInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
         startButton = (Button) rootView.findViewById(R.id.startQuizButton);
 
@@ -92,12 +90,22 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
                 totalQuestionsNumber += questionsCount;
             }
         }
-        totalLabel.setText(String.valueOf(totalQuestionsNumber));
+        updateStartButton();
     }
 
     private void updateLevelInfoLabel(String message, int color) {
         levelInfoLabel.setText(message);
         levelInfoLabel.setTextColor(color);
+    }
+
+    private void updateStartButton() {
+        if (totalQuestionsNumber > 0) {
+            startButton.setText(String.valueOf(getResources().getText(R.string.start_button_label)).replace("#", String.valueOf(totalQuestionsNumber)));
+            startButton.setEnabled(true);
+        } else {
+            startButton.setText(getResources().getText(R.string.start_button_empty_label));
+            startButton.setEnabled(false);
+        }
     }
 
     @Override
@@ -110,13 +118,13 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     public void onStartTrackingTouch(SeekBar seekBar) {
     }
 
+
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
 
     private class CategoryListAdapter extends ArrayAdapter<String> implements View.OnTouchListener {
-
 
         public CategoryListAdapter(Context context, List<String> items) {
             super(context, R.layout.category_row, R.id.categoryNameLabel, items);
@@ -133,7 +141,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             row.setOnTouchListener(this);
             return row;
         }
-
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
@@ -151,12 +158,12 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
                     nameLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
                     sizeLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
-                    totalLabel.setText(String.valueOf(totalQuestionsNumber));
-                    startButton.setEnabled(totalQuestionsNumber > 0);
+                    updateStartButton();
                     break;
             }
             return true;
         }
+
     }
 
 }

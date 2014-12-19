@@ -29,34 +29,10 @@
             android:id="@+id/difficultInfoLabel"
             android:layout_weight="1" />
 
-    <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentStart="true"
-                android:text="@string/total_questions"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-        <TextView
-                android:layout_width="40dp"
-                android:layout_height="fill_parent"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/totalCountLabel"
-                android:text="@string/sample_number"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-    </RelativeLayout>
-
     <Button
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:text="@string/start_quiz_button_label"
+            android:text="@string/start_button_empty_label"
             android:id="@+id/startQuizButton"
             android:layout_weight="2"
             android:enabled="false"/>
