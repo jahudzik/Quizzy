@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
@@ -24,8 +25,15 @@ import java.util.Map;
 public class SetupFragment extends ListFragment {
 
     private Map<String, Integer[]> stats;
+    private List<String> categories;
+    private int diffLevel = Constants.DIFFICULTY_LEVEL_ALL;
+    private int total = 0;
+
+    private TextView totalLabel;
+    private Button startButton;
 
     public SetupFragment() {
+        categories = new ArrayList<>();
     }
 
     public void setStats(Map<String, Integer[]> stats) {
@@ -36,12 +44,12 @@ public class SetupFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
-        TextView label = (TextView)rootView.findViewById(R.id.setupSummaryTextView);
+        totalLabel = (TextView) rootView.findViewById(R.id.totalCountLabel);
+        startButton = (Button) rootView.findViewById(R.id.startQuizButton);
 
-        List<String> list = new ArrayList<>();
-        list.addAll(stats.keySet());
-        Collections.sort(list);
-        setListAdapter(new CategoryListAdapter(inflater.getContext(), list));
+        categories.addAll(stats.keySet());
+        Collections.sort(categories);
+        setListAdapter(new CategoryListAdapter(inflater.getContext(), categories));
 
         return rootView;
     }
@@ -61,7 +69,7 @@ public class SetupFragment extends ListFragment {
             TextView sizeLabel = (TextView)row.findViewById(R.id.categorySizeLabel);
             String category = getItem(position);
             nameLabel.setText(category);
-            sizeLabel.setText("(" + stats.get(category)[Constants.DIFFICULTY_LEVEL_ALL] + ")");
+            sizeLabel.setText(stats.get(category)[Constants.DIFFICULTY_LEVEL_ALL] + "");
             row.setOnTouchListener(this);
             return row;
         }
@@ -71,7 +79,14 @@ public class SetupFragment extends ListFragment {
             CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    categoryChosenCheckBox.setChecked(!categoryChosenCheckBox.isChecked());
+                    boolean isChecked = !categoryChosenCheckBox.isChecked();
+                    categoryChosenCheckBox.setChecked(isChecked);
+                    TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
+                    String categoryName = nameLabel.getText().toString();
+                    int questionsCount = stats.get(categoryName)[diffLevel];
+                    total = (isChecked) ? total + questionsCount : total - questionsCount;
+                    totalLabel.setText(String.valueOf(total));
+                    startButton.setEnabled(total > 0);
                     break;
             }
             return true;

@@ -2,26 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/categoryChosenCheckBox"
+            android:layout_alignParentStart="true"
+            android:clickable="false" />
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/categoryNameLabel"
-            android:layout_toLeftOf="@+id/categorySizeLabel"/>
+            android:layout_toRightOf="@+id/categoryChosenCheckBox"/>
     <TextView
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="(45)"
+            android:text="0"
             android:id="@+id/categorySizeLabel"
-            android:layout_toLeftOf="@+id/categoryChosenCheckBox"/>
-    <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/categoryChosenCheckBox"
-            android:layout_alignParentEnd="true"
-            android:clickable="false" />
+            android:layout_alignParentEnd="true"/>
 </RelativeLayout>
