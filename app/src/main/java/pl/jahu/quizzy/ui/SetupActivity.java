@@ -1,6 +1,5 @@
 package pl.jahu.quizzy.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,9 +23,9 @@ public class SetupActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Question> questions = quizzyDatabase.selectAllQuestions();
-        Map<String, Integer[]> stats = getCategoriesInfo(questions);
+        Map<String, Integer[]> categoriesSizes = getCategoriesInfo(questions);
         SetupFragment setupFragment = new SetupFragment();
-        setupFragment.setStats(stats);
+        setupFragment.setCategoriesSizes(categoriesSizes);
 
         setContentView(R.layout.activity_setup);
         if (savedInstanceState == null) {
@@ -43,19 +42,19 @@ public class SetupActivity extends BaseActivity {
             if (!result.containsKey(category)) {
                 result.put(category, new Integer[]{0, 0, 0, 0});
             }
-            Integer[] stats = result.get(category);
-            stats[Constants.DIFFICULTY_LEVEL_ALL]++;
+            Integer[] sizes = result.get(category);
+            sizes[Constants.DIFFICULTY_LEVEL_ALL]++;
             int difficultValue = question.getDifficultValue();
             if (difficultValue < 75) {
-                stats[Constants.DIFFICULTY_LEVEL_BELOW_75]++;
+                sizes[Constants.DIFFICULTY_LEVEL_BELOW_75]++;
             }
             if (difficultValue < 50) {
-                stats[Constants.DIFFICULTY_LEVEL_BELOW_50]++;
+                sizes[Constants.DIFFICULTY_LEVEL_BELOW_50]++;
             }
             if (difficultValue < 25) {
-                stats[Constants.DIFFICULTY_LEVEL_BELOW_25]++;
+                sizes[Constants.DIFFICULTY_LEVEL_BELOW_25]++;
             }
-            result.put(category, stats);
+            result.put(category, sizes);
         }
 
 

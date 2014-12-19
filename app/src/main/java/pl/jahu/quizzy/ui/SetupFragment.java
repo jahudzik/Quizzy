@@ -23,81 +23,86 @@ import java.util.Map;
 public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener {
 
     private static final int MARK_COLOR = Color.rgb(81, 171, 240);
+    private static final int LEVEL_100_COLOR = Color.BLACK;
+    private static final int LEVEL_75_COLOR = Color.GREEN;
+    private static final int LEVEL_50_COLOR = Color.rgb(255, 179, 0);
+    private static final int LEVEL_25_COLOR = Color.RED;
 
-    private Map<String, Integer[]> stats;
-    private List<String> categories;
-    private int diffLevel = Constants.DIFFICULTY_LEVEL_ALL;
-    private int total = 0;
+
+    private Map<String, Integer[]> categoriesSizes;
+    private List<String> categoriesNames;
+    private int actualLevel = Constants.DIFFICULTY_LEVEL_ALL;
+    private int totalQuestionsNumber = 0;
 
     private TextView totalLabel;
-    private TextView diffInfoLabel;
+    private TextView levelInfoLabel;
     private Button startButton;
 
     public SetupFragment() {
-        categories = new ArrayList<>();
+        categoriesNames = new ArrayList<>();
     }
 
-    public void setStats(Map<String, Integer[]> stats) {
-        this.stats = stats;
+    public void setCategoriesSizes(Map<String, Integer[]> categoriesSizes) {
+        this.categoriesSizes = categoriesSizes;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
         totalLabel = (TextView) rootView.findViewById(R.id.totalCountLabel);
-        diffInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
+        levelInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
         startButton = (Button) rootView.findViewById(R.id.startQuizButton);
 
-        categories.addAll(stats.keySet());
-        Collections.sort(categories);
-        setListAdapter(new CategoryListAdapter(inflater.getContext(), categories));
+        categoriesNames.addAll(categoriesSizes.keySet());
+        Collections.sort(categoriesNames);
+        setListAdapter(new CategoryListAdapter(inflater.getContext(), categoriesNames));
 
         SeekBar difficultBar = (SeekBar) rootView.findViewById(R.id.difficultBar);
         difficultBar.setOnSeekBarChangeListener(this);
 
-        updateDifficultInfoLabel("All questions", Color.GREEN);
+        updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_all), LEVEL_100_COLOR);
         return rootView;
     }
 
     private void updateDifficulty() {
-        switch (diffLevel) {
+        switch (actualLevel) {
             case Constants.DIFFICULTY_LEVEL_ALL:
-                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_all), Color.GREEN);
+                updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_all), LEVEL_100_COLOR);
                 break;
             case Constants.DIFFICULTY_LEVEL_BELOW_75:
-                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_75), Color.rgb(235, 235, 95));
+                updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_75), LEVEL_75_COLOR);
                 break;
             case Constants.DIFFICULTY_LEVEL_BELOW_50:
-                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_50), Color.rgb(255, 179, 0));
+                updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_50), LEVEL_50_COLOR);
                 break;
             case Constants.DIFFICULTY_LEVEL_BELOW_25:
-                updateDifficultInfoLabel(getResources().getString(R.string.diff_level_desc_25), Color.RED);
+                updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_25), LEVEL_25_COLOR);
                 break;
         }
 
         ListView listView = getListView();
-        total = 0;
+        totalQuestionsNumber = 0;
         for (int i = 0; i < listView.getChildCount(); i++) {
             View rowView = listView.getChildAt(i);
             TextView sizeLabel = (TextView) rowView.findViewById(R.id.categorySizeLabel);
             CheckBox chosenCheckBox = (CheckBox) rowView.findViewById(R.id.categoryChosenCheckBox);
-            int questionsCount = stats.get(categories.get(i))[diffLevel];
+            int questionsCount = categoriesSizes.get(categoriesNames.get(i))[actualLevel];
             sizeLabel.setText(String.valueOf(questionsCount));
             if (chosenCheckBox.isChecked()) {
-                total += questionsCount;
+                totalQuestionsNumber += questionsCount;
             }
         }
-        totalLabel.setText(String.valueOf(total));
+        totalLabel.setText(String.valueOf(totalQuestionsNumber));
     }
 
-    private void updateDifficultInfoLabel(String message, int color) {
-        diffInfoLabel.setText(message);
-        diffInfoLabel.setTextColor(color);
+    private void updateLevelInfoLabel(String message, int color) {
+        levelInfoLabel.setText(message);
+        levelInfoLabel.setTextColor(color);
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        diffLevel = progress;
+        actualLevel = progress;
         updateDifficulty();
     }
 
@@ -124,7 +129,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             TextView sizeLabel = (TextView)row.findViewById(R.id.categorySizeLabel);
             String category = getItem(position);
             nameLabel.setText(category);
-            sizeLabel.setText(stats.get(category)[Constants.DIFFICULTY_LEVEL_ALL] + "");
+            sizeLabel.setText(String.valueOf(categoriesSizes.get(category)[Constants.DIFFICULTY_LEVEL_ALL]));
             row.setOnTouchListener(this);
             return row;
         }
@@ -136,15 +141,18 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
                 case MotionEvent.ACTION_DOWN:
                     TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
                     TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
+
                     boolean isChecked = !categoryChosenCheckBox.isChecked();
                     categoryChosenCheckBox.setChecked(isChecked);
+
                     String categoryName = nameLabel.getText().toString();
-                    int questionsCount = stats.get(categoryName)[diffLevel];
-                    total = (isChecked) ? total + questionsCount : total - questionsCount;
+                    int questionsCount = categoriesSizes.get(categoryName)[actualLevel];
+                    totalQuestionsNumber = (isChecked) ? totalQuestionsNumber + questionsCount : totalQuestionsNumber - questionsCount;
+
                     nameLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
                     sizeLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
-                    totalLabel.setText(String.valueOf(total));
-                    startButton.setEnabled(total > 0);
+                    totalLabel.setText(String.valueOf(totalQuestionsNumber));
+                    startButton.setEnabled(totalQuestionsNumber > 0);
                     break;
             }
             return true;
