@@ -2,6 +2,7 @@ package pl.jahu.quizzy.ui;
 
 import android.app.ListFragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +24,8 @@ import java.util.Map;
  * A placeholder fragment containing a simple view.
  */
 public class SetupFragment extends ListFragment {
+
+    private static final int MARK_COLOR = Color.rgb(81, 171, 240);
 
     private Map<String, Integer[]> stats;
     private List<String> categories;
@@ -79,12 +82,15 @@ public class SetupFragment extends ListFragment {
             CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
+                    TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
                     boolean isChecked = !categoryChosenCheckBox.isChecked();
                     categoryChosenCheckBox.setChecked(isChecked);
-                    TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
                     String categoryName = nameLabel.getText().toString();
                     int questionsCount = stats.get(categoryName)[diffLevel];
                     total = (isChecked) ? total + questionsCount : total - questionsCount;
+                    nameLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
+                    sizeLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
                     totalLabel.setText(String.valueOf(total));
                     startButton.setEnabled(total > 0);
                     break;
