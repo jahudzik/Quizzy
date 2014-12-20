@@ -85,6 +85,10 @@ public class SetupActivity extends BaseActivity implements SetupFragment.OnFragm
                 chosenQuestions.add(question);
             }
         }
-
+        QuizFragment quizFragment = new QuizFragment();
+        quizFragment.setQuestions(chosenQuestions);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, quizFragment)
+                .commit();
     }
 }
