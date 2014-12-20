@@ -82,6 +82,7 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 correctAnswersCount++;
                 answeredQuestions.add(roundQuestions.get(questionIndex));
+                roundQuestions.get(questionIndex).newAnswer(true);
                 updateStats();
                 showNextQuestion();
             }
@@ -92,6 +93,7 @@ public class QuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 wrongAnswersCount++;
+                roundQuestions.get(questionIndex).newAnswer(false);
                 updateStats();
                 showNextQuestion();
             }

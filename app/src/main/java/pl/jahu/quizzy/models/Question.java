@@ -13,9 +13,13 @@ public class Question {
 
     private final String category;
 
-    private int allAnswersCount;
+    private final int allAnswersCount;
 
-    private int correctAnswersCount;
+    private final int correctAnswersCount;
+
+    private int newAnswersCount;
+
+    private int newCorrectAnswersCount;
 
     public Question(int id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
         this.id = id;
@@ -24,6 +28,8 @@ public class Question {
         this.category = category;
         this.allAnswersCount = allAnswersCount;
         this.correctAnswersCount = correctAnswersCount;
+        this.newAnswersCount = 0;
+        this.newCorrectAnswersCount = 0;
     }
 
     public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
@@ -71,6 +77,13 @@ public class Question {
                 return (diffValue < 25);
             default:
                 return false;
+        }
+    }
+
+    public void newAnswer(boolean correct) {
+        newAnswersCount++;
+        if (correct) {
+            newCorrectAnswersCount++;
         }
     }
 
