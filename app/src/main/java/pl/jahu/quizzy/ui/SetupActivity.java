@@ -10,19 +10,19 @@ import pl.jahu.quizzy.providers.QuizzyDatabase;
 import pl.jahu.quizzy.utils.Constants;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class SetupActivity extends BaseActivity {
+public class SetupActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener {
 
     @Inject
     QuizzyDatabase quizzyDatabase;
 
+    private List<Question> questions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List<Question> questions = quizzyDatabase.selectAllQuestions();
+        questions = quizzyDatabase.selectAllQuestions();
         Map<String, Integer[]> categoriesSizes = getCategoriesInfo(questions);
         SetupFragment setupFragment = new SetupFragment();
         setupFragment.setCategoriesSizes(categoriesSizes);
@@ -77,4 +77,14 @@ public class SetupActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStartButtonClicked(Set<String> chosenCategories, int chosenLevel) {
+        List<Question> chosenQuestions = new ArrayList<>();
+        for (Question question : questions) {
+            if (chosenCategories.contains(question.getCategory()) && question.matchesLevel(chosenLevel)) {
+                chosenQuestions.add(question);
+            }
+        }
+
+    }
 }

@@ -1,5 +1,6 @@
 package pl.jahu.quizzy.ui;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,10 +13,7 @@ import android.widget.*;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.utils.Constants;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,8 +27,11 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private static final int LEVEL_25_COLOR = Color.RED;
 
 
+    private OnFragmentInteractionListener listener;
+
     private Map<String, Integer[]> categoriesSizes;
     private List<String> categoriesNames;
+    private Set<String> chosenCategories;
     private int actualLevel = Constants.DIFFICULTY_LEVEL_ALL;
     private int totalQuestionsNumber = 0;
 
@@ -39,6 +40,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
     public SetupFragment() {
         categoriesNames = new ArrayList<>();
+        chosenCategories = new HashSet<>();
     }
 
     public void setCategoriesSizes(Map<String, Integer[]> categoriesSizes) {
@@ -50,7 +52,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
         levelInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
         startButton = (Button) rootView.findViewById(R.id.startQuizButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onStartButtonClicked(chosenCategories, actualLevel);
+            }
+        });
 
+        // fill categories list
         categoriesNames.addAll(categoriesSizes.keySet());
         Collections.sort(categoriesNames);
         setListAdapter(new CategoryListAdapter(inflater.getContext(), categoriesNames));
@@ -60,6 +69,22 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
         updateLevelInfoLabel(getResources().getString(R.string.diff_level_desc_all), LEVEL_100_COLOR);
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     private void updateDifficulty() {
@@ -78,6 +103,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
                 break;
         }
 
+        // update each category size and total questions number for chosen level
         ListView listView = getListView();
         totalQuestionsNumber = 0;
         for (int i = 0; i < listView.getChildCount(); i++) {
@@ -154,7 +180,13 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
                     String categoryName = nameLabel.getText().toString();
                     int questionsCount = categoriesSizes.get(categoryName)[actualLevel];
-                    totalQuestionsNumber = (isChecked) ? totalQuestionsNumber + questionsCount : totalQuestionsNumber - questionsCount;
+                    if (isChecked) {
+                        chosenCategories.add(categoryName);
+                        totalQuestionsNumber = totalQuestionsNumber + questionsCount;
+                    } else {
+                        chosenCategories.remove(categoryName);
+                        totalQuestionsNumber = totalQuestionsNumber - questionsCount;
+                    }
 
                     nameLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
                     sizeLabel.setTextColor((isChecked) ? MARK_COLOR : Color.BLACK);
@@ -164,6 +196,10 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             return true;
         }
 
+    }
+
+    public interface OnFragmentInteractionListener {
+        public void onStartButtonClicked(Set<String> chosenCategories, int chosenLevel);
     }
 
 }

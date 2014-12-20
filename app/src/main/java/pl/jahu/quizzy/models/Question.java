@@ -1,6 +1,8 @@
 package pl.jahu.quizzy.models;
 
 
+import pl.jahu.quizzy.utils.Constants;
+
 public class Question {
 
     private final int id;
@@ -54,6 +56,22 @@ public class Question {
 
     public int getDifficultValue() {
         return (correctAnswersCount * 100) / allAnswersCount;
+    }
+
+    public boolean matchesLevel(int level) {
+        int diffValue = getDifficultValue();
+        switch (level) {
+            case Constants.DIFFICULTY_LEVEL_ALL:
+                return true;
+            case Constants.DIFFICULTY_LEVEL_BELOW_75:
+                return (diffValue < 75);
+            case Constants.DIFFICULTY_LEVEL_BELOW_50:
+                return (diffValue < 50);
+            case Constants.DIFFICULTY_LEVEL_BELOW_25:
+                return (diffValue < 25);
+            default:
+                return false;
+        }
     }
 
     @Override
