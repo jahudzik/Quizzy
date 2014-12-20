@@ -37,7 +37,7 @@ public class QuizzyTestDatabase extends QuizzyDatabase {
         QUESTIONS.add(new Question("Kosovo", "Pristina", CAPITAL_CITIES_CATEGORY, 6, 2));
         QUESTIONS.add(new Question("Switzerland", "Bern", CAPITAL_CITIES_CATEGORY, 5, 2));
 
-        String SPANISH_WORDS_CATEGORY = "German words";
+        String SPANISH_WORDS_CATEGORY = "Spanish words";
         QUESTIONS.add(new Question("dog", "el perro", SPANISH_WORDS_CATEGORY, 7, 7));
         QUESTIONS.add(new Question("computer", "el ordenador", SPANISH_WORDS_CATEGORY, 8, 7));
         QUESTIONS.add(new Question("trousers", "los pantalones", SPANISH_WORDS_CATEGORY, 6, 4));
