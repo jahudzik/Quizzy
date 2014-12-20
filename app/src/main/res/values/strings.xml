@@ -11,9 +11,11 @@
     <string name="correct_answer">Correct</string>
     <string name="incorrect_answer">Wrong</string>
     <string name="questions_left">Questions left:</string>
+    <string name="incorrect_answers">Incorrect answers:</string>
     <string name="diff_level_desc_all">All questions</string>
     <string name="diff_level_desc_75">Questions with less than 75% correct answers</string>
     <string name="diff_level_desc_50">Questions with less than 50% correct answers</string>
     <string name="diff_level_desc_25">Questions with less than 25% correct answers</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
