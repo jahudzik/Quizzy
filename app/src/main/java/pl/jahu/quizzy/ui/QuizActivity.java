@@ -12,7 +12,7 @@ import pl.jahu.quizzy.utils.Constants;
 import javax.inject.Inject;
 import java.util.*;
 
-public class SetupActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener {
+public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener {
 
     @Inject
     QuizzyDatabase quizzyDatabase;
@@ -27,7 +27,7 @@ public class SetupActivity extends BaseActivity implements SetupFragment.OnFragm
         SetupFragment setupFragment = new SetupFragment();
         setupFragment.setCategoriesSizes(categoriesSizes);
 
-        setContentView(R.layout.activity_setup);
+        setContentView(R.layout.activity_quiz);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, setupFragment)
@@ -71,10 +71,7 @@ public class SetupActivity extends BaseActivity implements SetupFragment.OnFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     @Override

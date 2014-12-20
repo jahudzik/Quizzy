@@ -4,7 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import pl.jahu.quizzy.providers.QuizzyDatabase;
 import pl.jahu.quizzy.providers.QuizzyTestDatabase;
-import pl.jahu.quizzy.ui.SetupActivity;
+import pl.jahu.quizzy.ui.QuizActivity;
 
 import javax.inject.Singleton;
 
@@ -13,7 +13,7 @@ import javax.inject.Singleton;
  * Created by jahudzik on 2014-12-18.
  */
 @Module(
-        injects = SetupActivity.class
+        injects = QuizActivity.class
 )
 public class AppModule {
 
