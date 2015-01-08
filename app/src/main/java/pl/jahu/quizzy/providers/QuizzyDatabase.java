@@ -68,7 +68,8 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public void insertQuestions(SQLiteDatabase db, List<Question> questions) {
+    public void insertQuestions(List<Question> questions) {
+        SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {
             for (Question question : questions) {

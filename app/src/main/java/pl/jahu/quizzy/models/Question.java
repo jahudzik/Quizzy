@@ -34,6 +34,10 @@ public class Question {
         this.actCorrectAnswersCount = 0;
     }
 
+    public Question(int id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+        this(String.valueOf(id), question, answer, category, allAnswersCount, correctAnswersCount);
+    }
+
     public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
         this(null, question, answer, category, allAnswersCount, correctAnswersCount);
     }
