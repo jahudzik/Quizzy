@@ -91,6 +91,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
 
     @Override
     public void onQuizFinished(List<Question> questions) {
+        quizzyDatabase.updateQuestionStats(questions);
+
         SummaryFragment summaryFragment = new SummaryFragment();
         summaryFragment.setQuestions(questions);
         getFragmentManager().beginTransaction()

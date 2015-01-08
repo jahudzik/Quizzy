@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class Question {
 
-    private final int id;
+    private final String id;
 
     private final String question;
 
@@ -23,7 +23,7 @@ public class Question {
 
     private int actCorrectAnswersCount;
 
-    public Question(int id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+    public Question(String id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
         this.id = id;
         this.question = question;
         this.answer = answer;
@@ -35,10 +35,10 @@ public class Question {
     }
 
     public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
-        this(-1, question, answer, category, allAnswersCount, correctAnswersCount);
+        this(null, question, answer, category, allAnswersCount, correctAnswersCount);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
