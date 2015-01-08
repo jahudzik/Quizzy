@@ -55,7 +55,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onStartButtonClicked(chosenCategories, actualLevel);
+                listener.onStartQuizButtonClicked(chosenCategories, actualLevel);
             }
         });
 
@@ -200,7 +200,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     }
 
     public interface OnFragmentInteractionListener {
-        public void onStartButtonClicked(Set<String> chosenCategories, int chosenLevel);
+        public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel);
     }
 
 }

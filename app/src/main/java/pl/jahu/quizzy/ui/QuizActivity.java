@@ -75,7 +75,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     }
 
     @Override
-    public void onStartButtonClicked(Set<String> chosenCategories, int chosenLevel) {
+    public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel) {
         List<Question> chosenQuestions = new ArrayList<>();
         for (Question question : questions) {
             if (chosenCategories.contains(question.getCategory()) && question.matchesLevel(chosenLevel)) {
