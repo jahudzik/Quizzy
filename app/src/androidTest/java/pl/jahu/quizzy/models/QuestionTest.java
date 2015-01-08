@@ -65,4 +65,60 @@ public class QuestionTest {
         assertNotEquals(question1.hashCode(), question2.hashCode());
     }
 
+    @Test
+    public void overallDifficultValueComparator_test1() {
+        Question question1 = new Question("question1", "answer1", "some category", 0, 0);
+        Question question2 = new Question("question2", "answer2", "some category", 0, 0);
+        Question.OverallDifficultValueComparator comparator = new Question.OverallDifficultValueComparator();
+        assertEquals(0, comparator.compare(question1, question2));
+    }
+
+    @Test
+    public void overallDifficultValueComparator_test2() {
+        Question question1 = new Question("question1", "answer1", "some category", 1, 1);
+        Question question2 = new Question("question2", "answer2", "some category", 3, 3);
+        Question.OverallDifficultValueComparator comparator = new Question.OverallDifficultValueComparator();
+        assertTrue(comparator.compare(question1, question2) < 0);
+    }
+
+    @Test
+    public void overallDifficultValueComparator_test3() {
+        Question question1 = new Question("question1", "answer1", "some category", 2, 2);
+        Question question2 = new Question("question2", "answer2", "some category", 2, 1);
+        Question.OverallDifficultValueComparator comparator = new Question.OverallDifficultValueComparator();
+        assertTrue(comparator.compare(question1, question2) > 0);
+    }
+
+    @Test
+    public void currentDifficultValueComparator_test1() {
+        Question question1 = new Question("question1", "answer1", "some category", 0, 0);
+        Question question2 = new Question("question2", "answer2", "some category", 0, 0);
+        Question.CurrentDifficultValueComparator comparator = new Question.CurrentDifficultValueComparator();
+        assertEquals(0, comparator.compare(question1, question2));
+    }
+
+    @Test
+    public void currentDifficultValueComparator_test2() {
+        Question question1 = new Question("question1", "answer1", "some category", 0, 0);
+        Question question2 = new Question("question2", "answer2", "some category", 0, 0);
+        question1.newAnswer(true);
+        question2.newAnswer(true);
+        question2.newAnswer(true);
+        question2.newAnswer(true);
+        Question.CurrentDifficultValueComparator comparator = new Question.CurrentDifficultValueComparator();
+        assertTrue(comparator.compare(question1, question2) < 0);
+    }
+
+    @Test
+    public void currentDifficultValueComparator_test3() {
+        Question question1 = new Question("question1", "answer1", "some category", 0, 0);
+        Question question2 = new Question("question2", "answer2", "some category", 0, 0);
+        question1.newAnswer(true);
+        question1.newAnswer(true);
+        question2.newAnswer(true);
+        question2.newAnswer(false);
+        Question.CurrentDifficultValueComparator comparator = new Question.CurrentDifficultValueComparator();
+        assertTrue(comparator.compare(question1, question2) > 0);
+    }
+
 }
