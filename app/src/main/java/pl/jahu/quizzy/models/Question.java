@@ -62,6 +62,14 @@ public class Question {
         return correctAnswersCount;
     }
 
+    public int getActAnswersCount() {
+        return actAnswersCount;
+    }
+
+    public int getActCorrectAnswersCount() {
+        return actCorrectAnswersCount;
+    }
+
     /**
      * Returns difficult value - percentage of correct answers ever.
      * If there were no answers yet, returns 100.
@@ -124,7 +132,7 @@ public class Question {
         return result;
     }
 
-    static class OverallDifficultValueComparator implements Comparator<Question> {
+    public static class OverallDifficultValueComparator implements Comparator<Question> {
         @Override
         public int compare(Question first, Question second) {
             int difference = (first.getDifficultValue() - second.getDifficultValue());
@@ -135,7 +143,7 @@ public class Question {
         }
     }
 
-    static class CurrentDifficultValueComparator implements Comparator<Question> {
+    public static class CurrentDifficultValueComparator implements Comparator<Question> {
 
         @Override
         public int compare(Question first, Question second) {

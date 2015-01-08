@@ -77,7 +77,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         try {
             listener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
+            throw new ClassCastException(activity.toString() + " must implement SetupFragment.OnFragmentInteractionListener");
         }
     }
 
@@ -167,6 +167,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             row.setOnTouchListener(this);
             return row;
         }
+
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);

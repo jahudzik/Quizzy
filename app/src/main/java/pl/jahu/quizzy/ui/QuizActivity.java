@@ -12,7 +12,7 @@ import pl.jahu.quizzy.utils.Constants;
 import javax.inject.Inject;
 import java.util.*;
 
-public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener {
+public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener {
 
     @Inject
     QuizzyDatabase quizzyDatabase;
@@ -86,6 +86,15 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         quizFragment.setQuestions(chosenQuestions);
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, quizFragment)
+                .commit();
+    }
+
+    @Override
+    public void onQuizFinished(List<Question> questions) {
+        SummaryFragment summaryFragment = new SummaryFragment();
+        summaryFragment.setQuestions(questions);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, summaryFragment)
                 .commit();
     }
 }

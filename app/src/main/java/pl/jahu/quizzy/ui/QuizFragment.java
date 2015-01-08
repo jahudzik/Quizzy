@@ -1,5 +1,6 @@
 package pl.jahu.quizzy.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,8 @@ public class QuizFragment extends Fragment {
     public static final String TOUCH_TO_SEE_MESSAGE = "Touch to see the answer";
 
     public static final String LOG_TAG = "Quizzy_QuestionFragment";
+
+    private OnFragmentInteractionListener listener;
 
     private TextView correctCountTextView;
     private TextView wrongCountTextView;
@@ -53,6 +56,22 @@ public class QuizFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement QuizFragment.OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     @Override
@@ -131,7 +150,7 @@ public class QuizFragment extends Fragment {
         questionIndex++;
         if (questionIndex >= roundQuestions.size()) {
             if (answeredQuestions.size() == questions.size()) {
-                questionTextView.setText("THE END :)");
+                listener.onQuizFinished(questions);
             } else {
                 startNewRound();
             }
@@ -141,6 +160,10 @@ public class QuizFragment extends Fragment {
             correctAnswerButton.setEnabled(false);
             wrongAnswerButton.setEnabled(false);
         }
+    }
+
+    public interface OnFragmentInteractionListener {
+        public void onQuizFinished(List<Question> questions);
     }
 
 }
