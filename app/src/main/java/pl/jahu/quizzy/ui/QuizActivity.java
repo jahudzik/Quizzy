@@ -44,7 +44,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
             }
             Integer[] sizes = result.get(category);
             sizes[Constants.DIFFICULTY_LEVEL_ALL]++;
-            int difficultValue = question.getDifficultValue();
+            int difficultValue = question.getOverallDifficultValue();
             if (difficultValue < 75) {
                 sizes[Constants.DIFFICULTY_LEVEL_BELOW_75]++;
             }

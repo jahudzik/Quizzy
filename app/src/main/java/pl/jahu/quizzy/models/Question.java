@@ -15,31 +15,31 @@ public class Question {
 
     private final String category;
 
-    private final int allAnswersCount;
+    private final int overallAnswers;
 
-    private final int correctAnswersCount;
+    private final int overallCorrectAnswers;
 
-    private int actAnswersCount;
+    private int quizAnswers;
 
-    private int actCorrectAnswersCount;
+    private int quizCorrectAnswers;
 
-    public Question(String id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
+    public Question(String id, String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
         this.id = id;
         this.question = question;
         this.answer = answer;
         this.category = category;
-        this.allAnswersCount = allAnswersCount;
-        this.correctAnswersCount = correctAnswersCount;
-        this.actAnswersCount = 0;
-        this.actCorrectAnswersCount = 0;
+        this.overallAnswers = overallAnswers;
+        this.overallCorrectAnswers = overallCorrectAnswers;
+        this.quizAnswers = 0;
+        this.quizCorrectAnswers = 0;
     }
 
-    public Question(int id, String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
-        this(String.valueOf(id), question, answer, category, allAnswersCount, correctAnswersCount);
+    public Question(int id, String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
+        this(String.valueOf(id), question, answer, category, overallAnswers, overallCorrectAnswers);
     }
 
-    public Question(String question, String answer, String category, int allAnswersCount, int correctAnswersCount) {
-        this(null, question, answer, category, allAnswersCount, correctAnswersCount);
+    public Question(String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
+        this(null, question, answer, category, overallAnswers, overallCorrectAnswers);
     }
 
     public String getId() {
@@ -58,40 +58,40 @@ public class Question {
         return category;
     }
 
-    public int getAllAnswersCount() {
-        return allAnswersCount;
+    public int getOverallAnswers() {
+        return overallAnswers;
     }
 
-    public int getCorrectAnswersCount() {
-        return correctAnswersCount;
+    public int getOverallCorrectAnswers() {
+        return overallCorrectAnswers;
     }
 
-    public int getActAnswersCount() {
-        return actAnswersCount;
+    public int getQuizAnswers() {
+        return quizAnswers;
     }
 
-    public int getActCorrectAnswersCount() {
-        return actCorrectAnswersCount;
+    public int getQuizCorrectAnswers() {
+        return quizCorrectAnswers;
     }
 
     /**
      * Returns difficult value - percentage of correct answers ever.
      * If there were no answers yet, returns 100.
      */
-    public int getDifficultValue() {
-        return (allAnswersCount != 0) ? (correctAnswersCount * 100) / allAnswersCount : 100;
+    public int getOverallDifficultValue() {
+        return (overallAnswers != 0) ? (overallCorrectAnswers * 100) / overallAnswers : 100;
     }
 
     /**
      * Returns difficult value - percentage of correct answers in current quiz.
      * If there were no answers yet, returns 100.
      */
-    public int getCurrentDifficultValue() {
-        return (actAnswersCount != 0) ? (actCorrectAnswersCount * 100) / actAnswersCount : 100;
+    public int getQuizDifficultValue() {
+        return (quizAnswers != 0) ? (quizCorrectAnswers * 100) / quizAnswers : 100;
     }
 
     public boolean matchesLevel(int level) {
-        int diffValue = getDifficultValue();
+        int diffValue = getOverallDifficultValue();
         switch (level) {
             case Constants.DIFFICULTY_LEVEL_ALL:
                 return true;
@@ -107,9 +107,9 @@ public class Question {
     }
 
     public void newAnswer(boolean correct) {
-        actAnswersCount++;
+        quizAnswers++;
         if (correct) {
-            actCorrectAnswersCount++;
+            quizCorrectAnswers++;
         }
     }
 
@@ -139,9 +139,9 @@ public class Question {
     public static class OverallDifficultValueComparator implements Comparator<Question> {
         @Override
         public int compare(Question first, Question second) {
-            int difference = (first.getDifficultValue() - second.getDifficultValue());
+            int difference = (first.getOverallDifficultValue() - second.getOverallDifficultValue());
             if (difference == 0) {
-                return (first.allAnswersCount - second.allAnswersCount);
+                return (first.overallAnswers - second.overallAnswers);
             }
             return difference;
         }
@@ -151,9 +151,9 @@ public class Question {
 
         @Override
         public int compare(Question first, Question second) {
-            int difference = (first.getCurrentDifficultValue() - second.getCurrentDifficultValue());
+            int difference = (first.getQuizDifficultValue() - second.getQuizDifficultValue());
             if (difference == 0) {
-                return (first.actAnswersCount - second.actAnswersCount);
+                return (first.quizAnswers - second.quizAnswers);
             }
             return difference;
         }

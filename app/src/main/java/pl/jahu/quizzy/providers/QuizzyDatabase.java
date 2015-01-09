@@ -77,8 +77,8 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                 cv.put(QUESTION_COLUMN, question.getQuestion());
                 cv.put(ANSWER_COLUMN, question.getAnswer());
                 cv.put(CATEGORY_COLUMN, question.getCategory());
-                cv.put(ALL_ANSWERS_COUNT_COLUMN, question.getAllAnswersCount());
-                cv.put(CORRECT_ANSWERS_COLUMN, question.getCorrectAnswersCount());
+                cv.put(ALL_ANSWERS_COUNT_COLUMN, question.getOverallAnswers());
+                cv.put(CORRECT_ANSWERS_COLUMN, question.getOverallCorrectAnswers());
                 db.insert(QUESTIONS_TABLE, null, cv);
             }
             db.setTransactionSuccessful();
@@ -93,8 +93,8 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
         try {
             for (Question question : questions) {
                 ContentValues cv = new ContentValues();
-                cv.put(ALL_ANSWERS_COUNT_COLUMN, question.getAllAnswersCount() + question.getActAnswersCount());
-                cv.put(CORRECT_ANSWERS_COLUMN, question.getCorrectAnswersCount() + question.getActCorrectAnswersCount());
+                cv.put(ALL_ANSWERS_COUNT_COLUMN, question.getOverallAnswers() + question.getQuizAnswers());
+                cv.put(CORRECT_ANSWERS_COLUMN, question.getOverallCorrectAnswers() + question.getQuizCorrectAnswers());
                 db.update(QUESTIONS_TABLE, cv, "id = ?", new String[]{question.getId()});
             }
             db.setTransactionSuccessful();
