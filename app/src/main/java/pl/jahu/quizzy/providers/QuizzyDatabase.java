@@ -62,7 +62,7 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                 String category = cursor.getString(3);
                 int allAnswersCount = cursor.getInt(4);
                 int correctAnswersCount = cursor.getInt(5);
-                result.add(new Question(String.valueOf(id), question, answer, category, allAnswersCount, correctAnswersCount));
+                result.add(new Question(id, question, answer, category, allAnswersCount, correctAnswersCount));
             }
         }
         return result;
@@ -95,7 +95,7 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                 ContentValues cv = new ContentValues();
                 cv.put(ALL_ANSWERS_COUNT_COLUMN, question.getOverallAnswers() + question.getQuizAnswers());
                 cv.put(CORRECT_ANSWERS_COLUMN, question.getOverallCorrectAnswers() + question.getQuizCorrectAnswers());
-                db.update(QUESTIONS_TABLE, cv, "id = ?", new String[]{question.getId()});
+                db.update(QUESTIONS_TABLE, cv, "id = ?", new String[]{String.valueOf(question.getId())});
             }
             db.setTransactionSuccessful();
         } finally {

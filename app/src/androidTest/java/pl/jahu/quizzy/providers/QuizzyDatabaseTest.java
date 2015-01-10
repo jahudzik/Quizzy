@@ -58,7 +58,7 @@ public class QuizzyDatabaseTest {
         quizzyDatabase.updateQuestionStats(Arrays.asList(question));
 
         List<Question> retrievedQuestions = quizzyDatabase.selectAllQuestions();
-        checkQuestionExistence(retrievedQuestions, "18", 1, 1);
+        checkQuestionExistence(retrievedQuestions, 18, 1, 1);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class QuizzyDatabaseTest {
         quizzyDatabase.updateQuestionStats(Arrays.asList(question));
 
         List<Question> retrievedQuestions = quizzyDatabase.selectAllQuestions();
-        checkQuestionExistence(retrievedQuestions, "18", 1, 0);
+        checkQuestionExistence(retrievedQuestions, 18, 1, 0);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class QuizzyDatabaseTest {
         quizzyDatabase.updateQuestionStats(Arrays.asList(question));
 
         List<Question> retrievedQuestions = quizzyDatabase.selectAllQuestions();
-        checkQuestionExistence(retrievedQuestions, "18", 4, 1);
+        checkQuestionExistence(retrievedQuestions, 18, 4, 1);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class QuizzyDatabaseTest {
         quizzyDatabase.updateQuestionStats(Arrays.asList(question));
 
         List<Question> retrievedQuestions = quizzyDatabase.selectAllQuestions();
-        checkQuestionExistence(retrievedQuestions, "18", 0, 0);
+        checkQuestionExistence(retrievedQuestions, 18, 0, 0);
     }
 
     @Test
@@ -113,9 +113,9 @@ public class QuizzyDatabaseTest {
         quizzyDatabase.updateQuestionStats(Arrays.asList(question1, question2, question3));
 
         List<Question> retrievedQuestions = quizzyDatabase.selectAllQuestions();
-        checkQuestionExistence(retrievedQuestions, "18", 1, 0);
-        checkQuestionExistence(retrievedQuestions, "19", 1, 1);
-        checkQuestionExistence(retrievedQuestions, "20", 2, 1);
+        checkQuestionExistence(retrievedQuestions, 18, 1, 0);
+        checkQuestionExistence(retrievedQuestions, 19, 1, 1);
+        checkQuestionExistence(retrievedQuestions, 20, 2, 1);
     }
 
 
@@ -133,7 +133,7 @@ public class QuizzyDatabaseTest {
         }
     }
 
-    private void checkQuestionExistence(List<Question> questions, String expectedId, int expectedOverallAnswers, int expectedOverallCorrectAnswers) {
+    private void checkQuestionExistence(List<Question> questions, int expectedId, int expectedOverallAnswers, int expectedOverallCorrectAnswers) {
         assertNotNull(questions);
         for (Question question : questions) {
             if (Objects.equals(question.getId(), expectedId)) {
