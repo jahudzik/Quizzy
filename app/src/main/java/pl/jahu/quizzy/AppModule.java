@@ -15,7 +15,7 @@ import javax.inject.Singleton;
 @Module(
         injects = QuizActivity.class
 )
-public class AppModule {
+class AppModule {
 
     private final QuizzyApplication application;
 

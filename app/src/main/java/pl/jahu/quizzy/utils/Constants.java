@@ -1,7 +1,5 @@
 package pl.jahu.quizzy.utils;
 
-import org.apache.http.conn.scheme.PlainSocketFactory;
-
 /**
  * Quizzy
  * Created by jahudzik on 2014-12-18.

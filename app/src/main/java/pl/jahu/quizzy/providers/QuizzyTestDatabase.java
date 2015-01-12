@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class QuizzyTestDatabase extends QuizzyDatabase {
 
-    private static List<Question> QUESTIONS = new ArrayList<>();
+    private static final List<Question> QUESTIONS = new ArrayList<>();
 
     static {
         String ANDROID_CODENAMES_CATEGORY = "Android codenames";

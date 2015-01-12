@@ -30,8 +30,8 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private OnFragmentInteractionListener listener;
 
     private Map<String, Integer[]> categoriesSizes;
-    private List<String> categoriesNames;
-    private Set<String> chosenCategories;
+    private final List<String> categoriesNames;
+    private final Set<String> chosenCategories;
     private int actualLevel = Constants.DIFFICULTY_LEVEL_ALL;
     private int totalQuestionsNumber = 0;
 

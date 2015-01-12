@@ -17,9 +17,9 @@ import java.util.*;
 
 public class QuizFragment extends Fragment {
 
-    public static final String TOUCH_TO_SEE_MESSAGE = "Touch to see the answer";
+    private static final String TOUCH_TO_SEE_MESSAGE = "Touch to see the answer";
 
-    public static final String LOG_TAG = "Quizzy_QuestionFragment";
+    private static final String LOG_TAG = "Quizzy_QuestionFragment";
 
     private OnFragmentInteractionListener listener;
 
@@ -28,8 +28,8 @@ public class QuizFragment extends Fragment {
     private TextView questionTextView;
 
     private List<Question> questions;
-    private List<Question> roundQuestions;
-    private Set<Question> answeredQuestions;
+    private final List<Question> roundQuestions;
+    private final Set<Question> answeredQuestions;
 
     private int roundNumber;
     private int questionIndex;
@@ -51,11 +51,6 @@ public class QuizFragment extends Fragment {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

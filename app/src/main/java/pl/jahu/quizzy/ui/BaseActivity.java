@@ -8,7 +8,7 @@ import pl.jahu.quizzy.QuizzyApplication;
  * Quizzy
  * Created by jahudzik on 2014-12-18.
  */
-public abstract class BaseActivity extends Activity {
+abstract class BaseActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

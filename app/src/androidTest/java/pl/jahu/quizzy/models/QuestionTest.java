@@ -45,7 +45,7 @@ public class QuestionTest {
 
     @Test
     public void equals_test6() {
-        Question question1 = new Question("question1", null, "some category", 0, 0);;
+        Question question1 = new Question("question1", null, "some category", 0, 0);
         Question question2 = new Question("question2", "answer", "some category", 0, 0);
         assertFalse(question1.equals(question2));
     }

@@ -19,13 +19,13 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "quizzy.db";
     private static final int SCHEMA_VERSION = 1;
 
-    public static final String QUESTIONS_TABLE = "questions";
-    public static final String ID_COLUMN = "id";
-    public static final String QUESTION_COLUMN = "question";
-    public static final String ANSWER_COLUMN = "answer";
-    public static final String ALL_ANSWERS_COUNT_COLUMN = "all_answers_count";
-    public static final String CORRECT_ANSWERS_COLUMN = "correct_answers_count";
-    public static final String CATEGORY_COLUMN = "category";
+    private static final String QUESTIONS_TABLE = "questions";
+    private static final String ID_COLUMN = "id";
+    private static final String QUESTION_COLUMN = "question";
+    private static final String ANSWER_COLUMN = "answer";
+    private static final String ALL_ANSWERS_COUNT_COLUMN = "all_answers_count";
+    private static final String CORRECT_ANSWERS_COLUMN = "correct_answers_count";
+    private static final String CATEGORY_COLUMN = "category";
 
 
     private static final String CREATE_QUESTIONS_TABLE_QUERY = "CREATE TABLE " + QUESTIONS_TABLE + " ( " +
