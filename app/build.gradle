@@ -4,10 +4,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.14.2'
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.13.+'
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.14.1'
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'robolectric'
 
 repositories {
@@ -44,7 +44,7 @@ robolectric {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.squareup.dagger:dagger-compiler:1.2.2'
 
     androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'

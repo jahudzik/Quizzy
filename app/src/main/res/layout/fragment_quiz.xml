@@ -1,16 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
-             android:id="@+id/container"
+             android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:layout_gravity="left|top"
+             android:layout_margin="16dp"
              tools:context=".QuestionActivity"
              tools:ignore="MergeRootFrame">
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="left|top"
-            android:layout_margin="16dp">
+
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
@@ -54,6 +51,7 @@
                     android:id="@+id/wrongCountValue"
                     android:padding="2dp"/>
         </LinearLayout>
+
         <TextView
                 android:id="@+id/questionTextView"
                 android:layout_width="fill_parent"
@@ -63,41 +61,34 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:background="#ffffffd4"
                 android:padding="16dp"/>
-        <LinearLayout
-                android:orientation="vertical"
+
+        <TextView
+                android:id="@+id/answerTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="16dp">
-            <TextView
-                    android:id="@+id/answerTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:background="#ffd9fcff"
-                    android:padding="16dp"/>
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                <Button
-                        android:id="@+id/correctAnswerButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/correct_answer"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"/>
-                <Button
-                        android:id="@+id/wrongAnswerButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/incorrect_answer"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:background="#ffd9fcff"
+                android:padding="16dp"/>
 
-    </LinearLayout>
-</FrameLayout>
+         <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+            <Button
+                    android:id="@+id/correctAnswerButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct_answer"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"/>
+            <Button
+                    android:id="@+id/wrongAnswerButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect_answer"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+</LinearLayout>

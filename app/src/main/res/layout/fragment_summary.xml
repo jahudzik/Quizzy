@@ -14,7 +14,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Summary"
+                android:text="@string/summary"
                 android:id="@+id/summaryLabel"
                 android:gravity="center_horizontal"/>
 
@@ -28,7 +28,7 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Main menu"
+                android:text="@string/main_menu"
                 android:id="@+id/button1"
                 android:layout_gravity="center_horizontal"/>
 
