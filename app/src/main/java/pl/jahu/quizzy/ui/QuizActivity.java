@@ -1,9 +1,6 @@
 package pl.jahu.quizzy.ui;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.models.Question;
 import pl.jahu.quizzy.providers.QuizzyDatabase;
@@ -59,19 +56,6 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
 
 
         return result;
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_setup, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     @Override
