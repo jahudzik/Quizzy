@@ -49,10 +49,6 @@ public class QuizFragment extends Fragment {
         wrongAnswersCount = 0;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -64,14 +60,17 @@ public class QuizFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.questions = savedInstanceState.getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+        this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_quiz, container, false);
         questionTextView = (TextView) rootView.findViewById(R.id.questionTextView);
@@ -119,6 +118,12 @@ public class QuizFragment extends Fragment {
         updateStats();
         startNewRound();
         return rootView;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     private void updateStats() {

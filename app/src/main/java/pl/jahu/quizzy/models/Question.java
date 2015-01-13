@@ -1,11 +1,15 @@
 package pl.jahu.quizzy.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import pl.jahu.quizzy.utils.Constants;
 
 import java.util.Comparator;
 
-public class Question {
+public class Question implements Parcelable {
+
+    public static QuestionCreator CREATOR = new QuestionCreator();
 
     private final int id;
 
@@ -23,7 +27,7 @@ public class Question {
 
     private int quizCorrectAnswers;
 
-    public Question(int id, String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
+    public Question(int id, String question, String answer, String category, int overallAnswers, int overallCorrectAnswers, int quizAnswers, int quizCorrectAnswers) {
         this.id = id;
         this.question = question;
         this.answer = answer;
@@ -32,6 +36,12 @@ public class Question {
         this.overallCorrectAnswers = overallCorrectAnswers;
         this.quizAnswers = 0;
         this.quizCorrectAnswers = 0;
+        this.quizAnswers = quizAnswers;
+        this.quizCorrectAnswers = quizCorrectAnswers;
+    }
+
+    public Question(int id, String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
+        this(id, question, answer, category, overallAnswers, overallCorrectAnswers, 0, 0);
     }
 
     public Question(String question, String answer, String category, int overallAnswers, int overallCorrectAnswers) {
@@ -130,6 +140,45 @@ public class Question {
         result = 31 * result + answer.hashCode();
         result = 31 * result + category.hashCode();
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(question);
+        dest.writeString(answer);
+        dest.writeString(category);
+        dest.writeInt(overallAnswers);
+        dest.writeInt(overallCorrectAnswers);
+        dest.writeInt(quizAnswers);
+        dest.writeInt(quizCorrectAnswers);
+    }
+
+    public static class QuestionCreator implements Parcelable.Creator<Question> {
+
+        @Override
+        public Question createFromParcel(Parcel source) {
+            int id = source.readInt();
+            String question = source.readString();
+            String answer = source.readString();
+            String category = source.readString();
+            int overallAnswers = source.readInt();
+            int overallCorrectAnswers = source.readInt();
+            int quizAnswers = source.readInt();
+            int quizCorrectAnswers = source.readInt();
+            return new Question(id, question, answer, category, overallAnswers, overallCorrectAnswers, quizAnswers, quizCorrectAnswers);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+
     }
 
     public static class OverallDifficultValueComparator implements Comparator<Question> {

@@ -22,13 +22,18 @@ public class SummaryFragment extends ListFragment {
 
     private List<Question> questions;
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+        }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+
         View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
         Collections.sort(questions, new Question.CurrentDifficultValueComparator());
         setListAdapter(new QuestionsListAdapter(inflater.getContext(), questions));
@@ -48,7 +53,7 @@ public class SummaryFragment extends ListFragment {
             TextView statsLabel = (TextView) row.findViewById(R.id.questionStatsLabel);
             Question question = questions.get(position);
             questionLabel.setText(question.getQuestion());
-            statsLabel.setText(question.getCurrentDifficultValue() + "% (" + question.getActCorrectAnswersCount() + "/" + question.getActAnswersCount() + ")");
+            statsLabel.setText(question.getQuizDifficultValue() + "% (" + question.getQuizCorrectAnswers() + "/" + question.getQuizAnswers() + ")");
             return row;
         }
     }
