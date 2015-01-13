@@ -43,12 +43,18 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         chosenCategories = new HashSet<>();
     }
 
-    public void setCategoriesSizes(Map<String, Integer[]> categoriesSizes) {
-        this.categoriesSizes = categoriesSizes;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.categoriesSizes = (HashMap)getArguments().getSerializable(QuizActivity.CATEGORIES_BUNDLE_KEY);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.categoriesSizes = (HashMap)getArguments().getSerializable(QuizActivity.CATEGORIES_BUNDLE_KEY);
+
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
         levelInfoLabel = (TextView) rootView.findViewById(R.id.difficultInfoLabel);
         startButton = (Button) rootView.findViewById(R.id.startQuizButton);

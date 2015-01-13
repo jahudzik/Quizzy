@@ -11,6 +11,7 @@ import java.util.*;
 
 public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener {
 
+    public static final String CATEGORIES_BUNDLE_KEY = "categories";
     public static final String QUESTIONS_BUNDLE_KEY = "questions";
 
     @Inject
@@ -22,9 +23,11 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         questions = quizzyDatabase.selectAllQuestions();
-        Map<String, Integer[]> categoriesSizes = getCategoriesInfo(questions);
+        HashMap<String, Integer[]> categoriesSizes = getCategoriesInfo(questions);
         SetupFragment setupFragment = new SetupFragment();
-        setupFragment.setCategoriesSizes(categoriesSizes);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CATEGORIES_BUNDLE_KEY, categoriesSizes);
+        setupFragment.setArguments(bundle);
 
         setContentView(R.layout.activity_quiz);
         if (savedInstanceState == null) {
@@ -34,8 +37,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         }
     }
 
-    private Map<String, Integer[]> getCategoriesInfo(List<Question> questions) {
-        Map<String, Integer[]> result = new HashMap<>();
+    private HashMap<String, Integer[]> getCategoriesInfo(List<Question> questions) {
+        HashMap<String, Integer[]> result = new HashMap<>();
         for (Question question : questions) {
             String category = question.getCategory();
             if (!result.containsKey(category)) {
