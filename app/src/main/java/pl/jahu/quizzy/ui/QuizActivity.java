@@ -11,8 +11,10 @@ import java.util.*;
 
 public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener {
 
-    public static final String CATEGORIES_BUNDLE_KEY = "categories";
-    public static final String QUESTIONS_BUNDLE_KEY = "questions";
+    static final String CATEGORIES_BUNDLE_KEY = "categories";
+    static final String QUESTIONS_BUNDLE_KEY = "questions";
+    static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
+    static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
 
     @Inject
     QuizzyDatabase quizzyDatabase;
