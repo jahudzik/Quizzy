@@ -50,10 +50,12 @@ dependencies {
     androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
     androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
+    androidTestCompile 'org.mockito:mockito-all:1.9.5'
 
     androidTestCompile('junit:junit:4.+') {
         exclude module: 'hamcrest-core'
     }
+
     androidTestCompile('org.robolectric:robolectric:2.4+') {
         exclude module: 'classworlds'
         exclude module: 'commons-logging'
