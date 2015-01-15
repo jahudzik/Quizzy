@@ -10,7 +10,7 @@
 
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top">
             <TextView
@@ -54,7 +54,7 @@
 
         <TextView
                 android:id="@+id/questionTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
@@ -64,7 +64,7 @@
 
         <TextView
                 android:id="@+id/answerTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
