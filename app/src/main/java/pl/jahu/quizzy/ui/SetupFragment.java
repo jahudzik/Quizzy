@@ -57,7 +57,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             chosenCategories.addAll(savedInstanceState.getStringArrayList(QuizActivity.CHOSEN_CATEGORIES_BUNDLE_KEY));
         }
 
-        categoriesSizes = (HashMap) getArguments().getSerializable(QuizActivity.CATEGORIES_BUNDLE_KEY);
+        categoriesSizes = (Map) getArguments().getSerializable(QuizActivity.CATEGORIES_BUNDLE_KEY);
         if (categoriesSizes != null) {
             // fill categories list
             List<String> categoriesNames = new ArrayList<>(categoriesSizes.keySet());
@@ -77,8 +77,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         SeekBar difficultBar = (SeekBar) rootView.findViewById(R.id.difficultBar);
         difficultBar.setOnSeekBarChangeListener(this);
 
-        updateStartButton();
-        updateLevelInfoLabel();
+        updateLayout();
         return rootView;
     }
 
@@ -95,29 +94,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         outState.putStringArrayList(QuizActivity.CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
     }
 
-    private void updateDifficulty() {
-        ListView listView = getListView();
-        for (int i = 0; i < listView.getChildCount(); i++) {
-            View view = listView.getChildAt(i);
-            TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
-            TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
-            sizeLabel.setText(String.valueOf((int) categoriesSizes.get(nameLabel.getText().toString())[actualLevel]));
-        }
-        updateStartButton();
-        updateLevelInfoLabel();
-    }
-
-    private void updateLevelInfoLabel() {
-        levelInfoLabel.setText(LEVEL_DESCRIPTIONS[actualLevel]);
-        levelInfoLabel.setTextColor(LEVEL_COLORS[actualLevel]);
-    }
-
-    private void updateStartButton() {
+    private void updateLayout() {
+        // count total number of questions chosen
         int totalQuestionsNumber = 0;
         for (String chosenCategory : chosenCategories) {
             totalQuestionsNumber += categoriesSizes.get(chosenCategory)[actualLevel];
         }
 
+        // update start button label and enable/disable it
         if (totalQuestionsNumber > 0) {
             startButton.setText(String.valueOf(getResources().getText(R.string.start_button_label)).replace("#", String.valueOf(totalQuestionsNumber)));
             startButton.setEnabled(true);
@@ -125,12 +109,25 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             startButton.setText(getResources().getText(R.string.start_button_empty_label));
             startButton.setEnabled(false);
         }
+
+        // update level info label
+        levelInfoLabel.setText(LEVEL_DESCRIPTIONS[actualLevel]);
+        levelInfoLabel.setTextColor(LEVEL_COLORS[actualLevel]);
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         actualLevel = progress;
-        updateDifficulty();
+
+        ListView listView = getListView();
+        for (int i = 0; i < listView.getChildCount(); i++) {
+            // update questions number for each category
+            View view = listView.getChildAt(i);
+            TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
+            TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
+            sizeLabel.setText(String.valueOf((int) categoriesSizes.get(nameLabel.getText().toString())[actualLevel]));
+        }
+        updateLayout();
     }
 
     @Override
@@ -188,7 +185,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
                     nameLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
                     sizeLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
-                    updateStartButton();
+                    updateLayout();
                     break;
             }
             return true;
