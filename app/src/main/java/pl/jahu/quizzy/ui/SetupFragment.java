@@ -20,9 +20,9 @@ import java.util.*;
  */
 public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener {
 
+    public static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
+    public static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
     private static final String CATEGORIES_BUNDLE_KEY = "categories";
-    private static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
-    private static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
 
     private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25};
     private static final int[] LEVEL_COLORS = {Color.BLACK, Color.GREEN, Color.rgb(255, 179, 0), Color.RED};
@@ -41,6 +41,16 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         SetupFragment fragment = new SetupFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CATEGORIES_BUNDLE_KEY, new HashMap<>(categoriesSizes));
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    protected static SetupFragment newInstance(Map<String, Integer[]> categoriesSizes, Set<String> chosenCategories, int chosenLevel) {
+        SetupFragment fragment = new SetupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CATEGORIES_BUNDLE_KEY, new HashMap<>(categoriesSizes));
+        bundle.putInt(DIFF_LEVEL_BUNDLE_KEY, chosenLevel);
+        bundle.putStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -67,6 +77,12 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             // handling configuration changes
             actualLevel = savedInstanceState.getInt(DIFF_LEVEL_BUNDLE_KEY);
             chosenCategories.addAll(savedInstanceState.getStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY));
+        } else {
+            if (getArguments().containsKey(DIFF_LEVEL_BUNDLE_KEY) && getArguments().containsKey(CHOSEN_CATEGORIES_BUNDLE_KEY)) {
+                // fragment may be initialized with already chosen difficulty level and chosen categories
+                actualLevel = getArguments().getInt(DIFF_LEVEL_BUNDLE_KEY);
+                chosenCategories.addAll(getArguments().getStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY));
+            }
         }
 
         categoriesSizes = (Map) getArguments().getSerializable(CATEGORIES_BUNDLE_KEY);
@@ -87,6 +103,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         });
 
         SeekBar difficultBar = (SeekBar) rootView.findViewById(R.id.difficultBar);
+        difficultBar.setProgress(actualLevel);
         difficultBar.setOnSeekBarChangeListener(this);
 
         updateLayout();
