@@ -23,14 +23,6 @@ public class SummaryFragment extends ListFragment {
     private List<Question> questions;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
 
