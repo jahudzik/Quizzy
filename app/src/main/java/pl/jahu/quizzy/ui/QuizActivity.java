@@ -11,11 +11,6 @@ import java.util.*;
 
 public class QuizActivity extends BaseActivity implements SetupFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener {
 
-    static final String CATEGORIES_BUNDLE_KEY = "categories";
-    static final String QUESTIONS_BUNDLE_KEY = "questions";
-    static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
-    static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
-
     @Inject
     QuizzyDatabase quizzyDatabase;
 
@@ -25,11 +20,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         questions = quizzyDatabase.selectAllQuestions();
-        HashMap<String, Integer[]> categoriesSizes = getCategoriesInfo(questions);
-        SetupFragment setupFragment = new SetupFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(CATEGORIES_BUNDLE_KEY, categoriesSizes);
-        setupFragment.setArguments(bundle);
+        SetupFragment setupFragment = SetupFragment.newInstance(getCategoriesInfo(questions));
 
         setContentView(R.layout.activity_quiz);
         if (savedInstanceState == null) {
@@ -39,8 +30,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         }
     }
 
-    private HashMap<String, Integer[]> getCategoriesInfo(List<Question> questions) {
-        HashMap<String, Integer[]> result = new HashMap<>();
+    private Map<String, Integer[]> getCategoriesInfo(List<Question> questions) {
+        Map<String, Integer[]> result = new HashMap<>();
         for (Question question : questions) {
             String category = question.getCategory();
             if (!result.containsKey(category)) {
@@ -67,16 +58,14 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
 
     @Override
     public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel) {
-        ArrayList<Question> chosenQuestions = new ArrayList<>();
+        List<Question> chosenQuestions = new ArrayList<>();
         for (Question question : questions) {
             if (chosenCategories.contains(question.getCategory()) && question.matchesLevel(chosenLevel)) {
                 chosenQuestions.add(question);
             }
         }
-        QuizFragment quizFragment = new QuizFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, chosenQuestions);
-        quizFragment.setArguments(bundle);
+        QuizFragment quizFragment = QuizFragment.newInstance(chosenQuestions);
+
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, quizFragment)
                 .commit();
@@ -85,11 +74,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     @Override
     public void onQuizFinished(List<Question> questions) {
         quizzyDatabase.updateQuestionStats(questions);
+        SummaryFragment summaryFragment = SummaryFragment.newInstance(questions);
 
-        SummaryFragment summaryFragment = new SummaryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList(questions));
-        summaryFragment.setArguments(bundle);
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, summaryFragment)
                 .commit();

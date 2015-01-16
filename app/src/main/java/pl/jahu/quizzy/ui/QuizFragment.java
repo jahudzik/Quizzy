@@ -17,11 +17,12 @@ import java.util.*;
 
 public class QuizFragment extends Fragment {
 
-    private static final String TOUCH_TO_SEE_MESSAGE = "Touch to see the answer";
+    private static final String QUESTIONS_BUNDLE_KEY = "questions";
     private static final String INTEGER_VALUES_KEY = "integerValues";
     private static final String ROUND_QUESTIONS_KEY = "roundQuestions";
     private static final String ANSWERED_QUESTIONS_KEY = "answeredQuestions";
     private static final String ACTUAL_ANSWER_KEY = "actualAnswer";
+    private static final String TOUCH_TO_SEE_MESSAGE = "Touch to see the answer";
 
     private static final String LOG_TAG = "Quizzy_QuestionFragment";
 
@@ -44,6 +45,14 @@ public class QuizFragment extends Fragment {
     private Button wrongAnswerButton;
     private TextView answerTextView;
 
+    protected static QuizFragment newInstance(List<Question> chosenQuestions) {
+        QuizFragment fragment = new QuizFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList<>(chosenQuestions));
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     public QuizFragment() {
         questions = new ArrayList<>();
         roundQuestions = new ArrayList<>();
@@ -65,7 +74,7 @@ public class QuizFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
-        this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+        this.questions = getArguments().getParcelableArrayList(QUESTIONS_BUNDLE_KEY);
 
         View rootView = inflater.inflate(R.layout.fragment_quiz, container, false);
 

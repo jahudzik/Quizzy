@@ -11,6 +11,7 @@ import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.models.Question;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,11 +21,21 @@ import java.util.List;
  */
 public class SummaryFragment extends ListFragment {
 
+    private static final String QUESTIONS_BUNDLE_KEY = "questions";
+
     private List<Question> questions;
+
+    protected static SummaryFragment newInstance(List<Question> questions) {
+        SummaryFragment fragment = new SummaryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList(questions));
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.questions = getArguments().getParcelableArrayList(QuizActivity.QUESTIONS_BUNDLE_KEY);
+        this.questions = getArguments().getParcelableArrayList(QUESTIONS_BUNDLE_KEY);
 
         View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
         Collections.sort(questions, new Question.CurrentDifficultValueComparator());

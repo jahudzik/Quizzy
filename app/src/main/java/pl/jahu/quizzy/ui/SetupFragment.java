@@ -20,6 +20,10 @@ import java.util.*;
  */
 public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener {
 
+    private static final String CATEGORIES_BUNDLE_KEY = "categories";
+    private static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
+    private static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
+
     private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25};
     private static final int[] LEVEL_COLORS = {Color.BLACK, Color.GREEN, Color.rgb(255, 179, 0), Color.RED};
     private static final int MARK_COLOR = Color.rgb(81, 171, 240);
@@ -32,6 +36,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
     private TextView levelInfoLabel;
     private Button startButton;
+
+    protected static SetupFragment newInstance(Map<String, Integer[]> categoriesSizes) {
+        SetupFragment fragment = new SetupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CATEGORIES_BUNDLE_KEY, new HashMap<>(categoriesSizes));
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     public SetupFragment() {
         chosenCategories = new HashSet<>();
@@ -53,11 +65,11 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
         if (savedInstanceState != null) {
             // handling configuration changes
-            actualLevel = savedInstanceState.getInt(QuizActivity.DIFF_LEVEL_BUNDLE_KEY);
-            chosenCategories.addAll(savedInstanceState.getStringArrayList(QuizActivity.CHOSEN_CATEGORIES_BUNDLE_KEY));
+            actualLevel = savedInstanceState.getInt(DIFF_LEVEL_BUNDLE_KEY);
+            chosenCategories.addAll(savedInstanceState.getStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY));
         }
 
-        categoriesSizes = (Map) getArguments().getSerializable(QuizActivity.CATEGORIES_BUNDLE_KEY);
+        categoriesSizes = (Map) getArguments().getSerializable(CATEGORIES_BUNDLE_KEY);
         if (categoriesSizes != null) {
             // fill categories list
             List<String> categoriesNames = new ArrayList<>(categoriesSizes.keySet());
@@ -90,8 +102,8 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(QuizActivity.DIFF_LEVEL_BUNDLE_KEY, actualLevel);
-        outState.putStringArrayList(QuizActivity.CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
+        outState.putInt(DIFF_LEVEL_BUNDLE_KEY, actualLevel);
+        outState.putStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
     }
 
     private void updateLayout() {
