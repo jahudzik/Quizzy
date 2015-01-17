@@ -2,8 +2,8 @@ package pl.jahu.quizzy;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.jahu.quizzy.providers.AssetsBasedDatabase;
 import pl.jahu.quizzy.providers.QuizzyDatabase;
-import pl.jahu.quizzy.providers.QuizzyTestDatabase;
 import pl.jahu.quizzy.ui.QuizActivity;
 
 import javax.inject.Singleton;
@@ -28,7 +28,7 @@ class AppModule {
     @Singleton
     @SuppressWarnings("unused")
     QuizzyDatabase provideDatabase() {
-        return new QuizzyTestDatabase(application);
+        return new AssetsBasedDatabase(application);
     }
 
 }

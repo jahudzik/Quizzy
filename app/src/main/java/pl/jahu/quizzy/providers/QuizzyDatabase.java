@@ -37,13 +37,16 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
                                                                                 CORRECT_ANSWERS_COLUMN + " INTEGER)";
     private static final String SELECT_ALL_QUESTIONS_QUERY = "SELECT * FROM " + QUESTIONS_TABLE;
 
+    private SQLiteDatabase db;
+
     public QuizzyDatabase(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_QUESTIONS_TABLE_QUERY);
+        this.db = db;
+        this.db.execSQL(CREATE_QUESTIONS_TABLE_QUERY);
     }
 
     @Override
@@ -69,7 +72,9 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
     }
 
     public void insertQuestions(List<Question> questions) {
-        SQLiteDatabase db = getWritableDatabase();
+        if (db == null) {
+            db = getWritableDatabase();
+        }
         db.beginTransaction();
         try {
             for (Question question : questions) {
@@ -88,7 +93,9 @@ public class QuizzyDatabase extends SQLiteOpenHelper {
     }
 
     public void updateQuestionStats(List<Question> questions) {
-        SQLiteDatabase db = getWritableDatabase();
+        if (db == null) {
+            db = getWritableDatabase();
+        }
         db.beginTransaction();
         try {
             for (Question question : questions) {

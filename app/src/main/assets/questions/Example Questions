@@ -1,0 +1,31 @@
+Some question
+Some answer
+
+Some another question
+Some answer
+In two lines
+
+Some very long question in order to test that everything will layout really good. It's still not enough... This text should be much longer, so it will be broken into many lines on my phone's big screen so I will test how it presents. I'm still missing feature of scrollable question field, so I'll use that looooooooooooooooooong question to test it. Hmm... that's right, I should also test some very long word in the question to check how it will handle that. But I will do it in the next example question, at this point I hope this length is enough to test.
+Short answer for a long question.
+
+Some question with a really loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong word.
+Answer.
+
+Some question expecting many lines in the answer.
+Answer with incoming 16 lines:
+line 1
+line 2
+line 3
+line 4
+line 5
+line 6
+line 7
+line 8
+line 9
+line 10
+line 11
+line 12
+line 13
+line 14
+line 15
+line 16
