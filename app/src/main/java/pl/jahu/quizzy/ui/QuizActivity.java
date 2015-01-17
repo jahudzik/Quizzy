@@ -13,6 +13,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
                                                             QuizFragment.OnFragmentInteractionListener,
                                                             SummaryFragment.OnFragmentInteractionListener {
 
+    private static final String QUESTIONS_BUNDLE_KEY = "questions";
+
     @Inject
     QuizzyDatabase quizzyDatabase;
 
@@ -23,8 +25,15 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        questions = quizzyDatabase.selectAllQuestions();
-        chosenCategories = new HashSet<>();
+        if (savedInstanceState == null) {
+            questions = quizzyDatabase.selectAllQuestions();
+            chosenCategories = new HashSet<>();
+        } else {
+            questions = savedInstanceState.getParcelableArrayList(QUESTIONS_BUNDLE_KEY);
+            chosenCategories = new HashSet<>(savedInstanceState.getStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY));
+            chosenLevel = savedInstanceState.getInt(SetupFragment.DIFF_LEVEL_BUNDLE_KEY);
+        }
+
         SetupFragment setupFragment = SetupFragment.newInstance(getCategoriesSizes(questions));
 
         setContentView(R.layout.activity_quiz);
@@ -40,16 +49,9 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         super.onSaveInstanceState(outState);
         outState.putInt(SetupFragment.DIFF_LEVEL_BUNDLE_KEY, chosenLevel);
         outState.putStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
+        outState.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList<>(questions));
     }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState != null) {
-            chosenLevel = savedInstanceState.getInt(SetupFragment.DIFF_LEVEL_BUNDLE_KEY);
-            chosenCategories = new HashSet<>(savedInstanceState.getStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY));
-        }
-    }
+    
 
     private Map<String, Integer[]> getCategoriesSizes(List<Question> questions) {
         Map<String, Integer[]> result = new HashMap<>();
@@ -72,7 +74,6 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
             }
             result.put(category, sizes);
         }
-
 
         return result;
     }
