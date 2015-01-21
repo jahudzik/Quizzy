@@ -198,7 +198,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         public boolean onTouch(View view, MotionEvent event) {
             CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
             switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_UP:
                     TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
                     TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
 
