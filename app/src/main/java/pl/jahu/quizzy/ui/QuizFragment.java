@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.models.Question;
 
@@ -183,6 +184,7 @@ public class QuizFragment extends Fragment {
         Collections.shuffle(roundQuestions);
         questionIndex = -1;
         Log.i(LOG_TAG, "Starting round " + roundNumber + ". Remaining " + roundQuestions.size() + " questions.");
+        Toast.makeText(getActivity(), "Round " + roundNumber, Toast.LENGTH_SHORT).show();
         showNextQuestion();
     }
 
