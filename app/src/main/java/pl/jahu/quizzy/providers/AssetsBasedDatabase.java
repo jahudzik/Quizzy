@@ -71,7 +71,7 @@ public class AssetsBasedDatabase extends QuizzyDatabase {
 
     private int addQuestion(List<Question> questions, int id, String category, String question, StringBuilder answer) {
         String answerValue = (answer != null) ? answer.toString() : "<no answer>";
-        questions.add(new Question(id, question, answerValue, category, 0, 0, 0, 0));
+        questions.add(new Question(id, question, answerValue, category.replace(".txt", ""), 0, 0, 0, 0));
         return id;
     }
 
