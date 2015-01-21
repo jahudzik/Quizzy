@@ -4,7 +4,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_gravity="left|top"
-             android:layout_margin="16dp"
+             android:layout_margin="10dp"
              tools:context=".QuestionActivity"
              tools:ignore="MergeRootFrame">
 
@@ -41,7 +41,7 @@
             android:id="@+id/categoryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:paddingLeft="8dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
@@ -58,7 +58,7 @@
                     android:id="@+id/questionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:padding="8dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </ScrollView>
@@ -68,16 +68,16 @@
                 android:id="@+id/answerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="5"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="5dp"
                 android:background="#ffd9fcff">
 
             <TextView
                     android:id="@+id/answerTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:padding="8dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </ScrollView>
