@@ -16,48 +16,34 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#ffd4ffdf"
                     android:text="@string/questions_left"
                     android:id="@+id/correctCountLabel"
                     android:padding="2dp"/>
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ffd4ffdf"
+                    android:layout_weight="8"
                     android:text="@string/sample_number"
-                    android:id="@+id/correctCountValue"
+                    android:id="@+id/questionsLeftNumberTextField"
                     android:padding="2dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView"
-                    android:layout_weight="2"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#ffffd9d4"
-                    android:text="@string/incorrect_answers"
-                    android:id="@+id/wrongCountLabel"
-                    android:padding="2dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ffffd9d4"
-                    android:text="@string/sample_number"
-                    android:id="@+id/wrongCountValue"
-                    android:padding="2dp"/>
+
         </LinearLayout>
 
-        <ScrollView
+    <TextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:background="#ffffffa4"
+            android:textStyle="bold"/>
+    <ScrollView
             android:id="@+id/questionScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="16dp"
+            android:layout_weight="2"
             android:background="#ffffffd4">
 
             <TextView
@@ -74,8 +60,9 @@
                 android:id="@+id/answerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="16dp"
+                android:layout_weight="3"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:background="#ffd9fcff">
 
             <TextView

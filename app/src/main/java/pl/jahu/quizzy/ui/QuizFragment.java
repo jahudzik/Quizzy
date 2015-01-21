@@ -38,8 +38,8 @@ public class QuizFragment extends Fragment {
     private int correctAnswersCount;
     private int wrongAnswersCount;
 
-    private TextView correctCountTextView;
-    private TextView wrongCountTextView;
+    private TextView questionsLeftNumberTextView;
+    private TextView categoryTextView;
     private TextView questionTextView;
 
     private Button correctAnswerButton;
@@ -121,8 +121,8 @@ public class QuizFragment extends Fragment {
             }
         });
 
-        correctCountTextView = (TextView) rootView.findViewById(R.id.correctCountValue);
-        wrongCountTextView = (TextView) rootView.findViewById(R.id.wrongCountValue);
+        questionsLeftNumberTextView = (TextView) rootView.findViewById(R.id.questionsLeftNumberTextField);
+        categoryTextView = (TextView) rootView.findViewById(R.id.categoryTextView);
 
         if (savedInstanceState != null) {
             // handling configuration changes
@@ -136,7 +136,9 @@ public class QuizFragment extends Fragment {
             String actualAnswer = savedInstanceState.getString(ACTUAL_ANSWER_KEY);
 
             // set UI widgets
-            questionTextView.setText(roundQuestions.get(questionIndex).getQuestion());
+            Question actQuestion = roundQuestions.get(questionIndex);
+            categoryTextView.setText(actQuestion.getCategory());
+            questionTextView.setText(actQuestion.getQuestion());
             answerTextView.setText(actualAnswer);
             if (!actualAnswer.equals(TOUCH_TO_SEE_MESSAGE)) {
                 correctAnswerButton.setEnabled(true);
@@ -166,9 +168,8 @@ public class QuizFragment extends Fragment {
     }
 
     private void updateStats() {
-        int questionsLeft = questions.size() - correctAnswersCount;
-        correctCountTextView.setText(((questionsLeft < 10) ? " " : "") + questionsLeft);
-        wrongCountTextView.setText(String.valueOf(wrongAnswersCount));
+        int questionsLeft = questions.size() - answeredQuestions.size();
+        questionsLeftNumberTextView.setText(((questionsLeft < 10) ? " " : "") + questionsLeft);
     }
 
     private void startNewRound() {
@@ -194,7 +195,9 @@ public class QuizFragment extends Fragment {
                 startNewRound();
             }
         } else {
-            questionTextView.setText(roundQuestions.get(questionIndex).getQuestion());
+            Question newQuestion = roundQuestions.get(questionIndex);
+            categoryTextView.setText(newQuestion.getCategory());
+            questionTextView.setText(newQuestion.getQuestion());
             answerTextView.setText(TOUCH_TO_SEE_MESSAGE);
             correctAnswerButton.setEnabled(false);
             wrongAnswerButton.setEnabled(false);
