@@ -42,10 +42,11 @@ public class QuizFragment extends Fragment {
     private TextView questionsLeftNumberTextView;
     private TextView categoryTextView;
     private TextView questionTextView;
+    private TextView answerTextView;
 
     private Button correctAnswerButton;
     private Button wrongAnswerButton;
-    private TextView answerTextView;
+    private Button finishButton;
 
     protected static QuizFragment newInstance(List<Question> chosenQuestions) {
         QuizFragment fragment = new QuizFragment();
@@ -98,6 +99,14 @@ public class QuizFragment extends Fragment {
 
         answerTextView = (TextView) rootView.findViewById(R.id.answerTextView);
         answerTextView.setText(TOUCH_TO_SEE_MESSAGE);
+
+        finishButton = (Button) rootView.findViewById(R.id.finishButton);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onQuizFinished(questions);
+            }
+        });
 
         correctAnswerButton = (Button) rootView.findViewById(R.id.correctAnswerButton);
         correctAnswerButton.setOnClickListener(new View.OnClickListener() {

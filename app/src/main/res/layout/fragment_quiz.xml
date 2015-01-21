@@ -26,6 +26,14 @@
                     android:text="@string/sample_number"
                     android:id="@+id/questionsLeftNumberTextField"
                     android:padding="2dp"/>
+            <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/finish"
+                    android:id="@+id/finishButton"
+                    android:layout_weight="1"
+                    android:minHeight="0dp"/>
 
         </LinearLayout>
 
