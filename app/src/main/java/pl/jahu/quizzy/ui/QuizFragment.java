@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.models.Question;
@@ -78,18 +79,23 @@ public class QuizFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_quiz, container, false);
 
-        answerTextView = (TextView) rootView.findViewById(R.id.answerTextView);
-        answerTextView.setOnTouchListener(new View.OnTouchListener() {
+        questionTextView = (TextView) rootView.findViewById(R.id.questionTextView);
+
+        ScrollView answerScrollView = (ScrollView) rootView.findViewById(R.id.answerScrollView);
+        answerScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && answerTextView.getText().equals(TOUCH_TO_SEE_MESSAGE)) {
                     answerTextView.setText(roundQuestions.get(questionIndex).getAnswer());
                     correctAnswerButton.setEnabled(true);
                     wrongAnswerButton.setEnabled(true);
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
+
+        answerTextView = (TextView) rootView.findViewById(R.id.answerTextView);
         answerTextView.setText(TOUCH_TO_SEE_MESSAGE);
 
         correctAnswerButton = (Button) rootView.findViewById(R.id.correctAnswerButton);
@@ -117,8 +123,6 @@ public class QuizFragment extends Fragment {
 
         correctCountTextView = (TextView) rootView.findViewById(R.id.correctCountValue);
         wrongCountTextView = (TextView) rootView.findViewById(R.id.wrongCountValue);
-
-        questionTextView = (TextView) rootView.findViewById(R.id.questionTextView);
 
         if (savedInstanceState != null) {
             // handling configuration changes

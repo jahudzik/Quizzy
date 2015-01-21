@@ -52,25 +52,42 @@
                     android:padding="2dp"/>
         </LinearLayout>
 
-        <TextView
-                android:id="@+id/questionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="16dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:background="#ffffffd4"
-                android:padding="16dp"/>
+        <ScrollView
+            android:id="@+id/questionScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:background="#ffffffd4">
 
-        <TextView
-                android:id="@+id/answerTextView"
+            <TextView
+                    android:id="@+id/questionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </ScrollView>
+
+
+        <ScrollView
+                android:id="@+id/answerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:background="#ffd9fcff"
-                android:padding="16dp"/>
+                android:background="#ffd9fcff">
+
+            <TextView
+                    android:id="@+id/answerTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </ScrollView>
+
+
 
          <RelativeLayout
                 android:layout_width="match_parent"
