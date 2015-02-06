@@ -191,7 +191,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private class CategoryListAdapter extends ArrayAdapter<String> {
 
         public CategoryListAdapter(Context context, List<String> items) {
-            super(context, R.layout.category_row, R.id.categoryNameLabel, items);
+            super(context, R.layout.row_category, R.id.categoryNameLabel, items);
         }
 
         @Override

@@ -77,7 +77,7 @@ public class SummaryFragment extends ListFragment {
     private class QuestionsListAdapter extends ArrayAdapter<Question> {
 
         public QuestionsListAdapter(Context context, List<Question> items) {
-            super(context, R.layout.question_stats_row, R.id.questionLabel, items);
+            super(context, R.layout.row_question_stats, R.id.questionLabel, items);
         }
 
         @Override
