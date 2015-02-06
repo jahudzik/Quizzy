@@ -1,5 +1,6 @@
 package pl.jahu.quizzy.ui;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,7 +68,10 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
                 // TODO
                 break;
             case R.id.action_finish:
-                // TODO
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
+                if (fragment instanceof QuizFragment) {
+                    onQuizFinished(((QuizFragment) fragment).getQuestions());
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

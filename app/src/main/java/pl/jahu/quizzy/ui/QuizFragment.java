@@ -43,7 +43,6 @@ public class QuizFragment extends Fragment {
 
     private Button correctAnswerButton;
     private Button wrongAnswerButton;
-    private Button finishButton;
 
     protected static QuizFragment newInstance(List<Question> chosenQuestions) {
         QuizFragment fragment = new QuizFragment();
@@ -97,14 +96,6 @@ public class QuizFragment extends Fragment {
 
         answerTextView = (TextView) rootView.findViewById(R.id.answerTextView);
         answerTextView.setText(TOUCH_TO_SEE_MESSAGE);
-
-        finishButton = (Button) rootView.findViewById(R.id.finishButton);
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onQuizFinished(questions);
-            }
-        });
 
         correctAnswerButton = (Button) rootView.findViewById(R.id.correctAnswerButton);
         correctAnswerButton.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +213,10 @@ public class QuizFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         public void onQuizFinished(List<Question> questions);
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
     }
 
 }
