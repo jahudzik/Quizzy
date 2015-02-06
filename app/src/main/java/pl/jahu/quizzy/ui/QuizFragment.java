@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -63,6 +60,7 @@ public class QuizFragment extends Fragment {
         roundNumber = 0;
         correctAnswersCount = 0;
         wrongAnswersCount = 0;
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -180,6 +178,13 @@ public class QuizFragment extends Fragment {
     private void updateStats() {
         int questionsLeft = questions.size() - answeredQuestions.size();
         questionsLeftNumberTextView.setText(((questionsLeft < 10) ? " " : "") + questionsLeft);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.quiz_actions, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void startNewRound() {

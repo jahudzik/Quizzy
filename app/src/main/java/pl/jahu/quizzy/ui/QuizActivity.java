@@ -1,6 +1,8 @@
 package pl.jahu.quizzy.ui;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import pl.jahu.quizzy.app.R;
 import pl.jahu.quizzy.models.Question;
 import pl.jahu.quizzy.providers.QuizzyDatabase;
@@ -51,7 +53,25 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         outState.putStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
         outState.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList<>(questions));
     }
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.overall_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // TODO
+                break;
+            case R.id.action_finish:
+                // TODO
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private Map<String, Integer[]> getCategoriesSizes(List<Question> questions) {
         Map<String, Integer[]> result = new HashMap<>();
@@ -91,6 +111,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         }
         QuizFragment quizFragment = QuizFragment.newInstance(chosenQuestions);
 
+        invalidateOptionsMenu();
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, quizFragment)
                 .commit();
@@ -101,6 +122,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         quizzyDatabase.updateQuestionStats(questions);
         SummaryFragment summaryFragment = SummaryFragment.newInstance(questions);
 
+        invalidateOptionsMenu();
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, summaryFragment)
                 .commit();

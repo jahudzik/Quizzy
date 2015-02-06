@@ -16,6 +16,7 @@
     <string name="diff_level_desc_25" tools:ignore="StringFormatInvalid">Questions with less than 25% correct answers</string>
     <string name="summary">Summary</string>
     <string name="repeat">Repeat</string>
-    <string name="finish">Finish</string>
+    <string name="action_finish">Finish</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
