@@ -8,19 +8,22 @@
             android:text=""
             android:id="@+id/categoryChosenCheckBox"
             android:layout_alignParentStart="true"
-            android:clickable="false" />
+            android:clickable="false"
+            android:focusable="false"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/sample_text"
             android:id="@+id/categoryNameLabel"
-            android:layout_toRightOf="@+id/categoryChosenCheckBox"/>
+            android:layout_toRightOf="@+id/categoryChosenCheckBox"
+            android:focusable="false"/>
     <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/sample_number"
             android:id="@+id/categorySizeLabel"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:focusable="false"/>
 </RelativeLayout>

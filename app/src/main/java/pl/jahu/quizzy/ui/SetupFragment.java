@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -168,8 +167,28 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
+    @Override
+    public void onListItemClick(ListView l, View view, int position, long id) {
+        CheckBox checkbox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
+        TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
+        TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
 
-    private class CategoryListAdapter extends ArrayAdapter<String> implements View.OnTouchListener {
+        boolean newCheckedState = !checkbox.isChecked();
+        checkbox.setChecked(newCheckedState);
+
+        String categoryName = nameLabel.getText().toString();
+        if (newCheckedState) {
+            chosenCategories.add(categoryName);
+        } else {
+            chosenCategories.remove(categoryName);
+        }
+
+        nameLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
+        sizeLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
+        updateLayout();
+    }
+
+    private class CategoryListAdapter extends ArrayAdapter<String> {
 
         public CategoryListAdapter(Context context, List<String> items) {
             super(context, R.layout.category_row, R.id.categoryNameLabel, items);
@@ -190,34 +209,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
                 sizeLabel.setTextColor(MARK_COLOR);
                 categoryChosenCheckBox.setChecked(true);
             }
-            row.setOnTouchListener(this);
             return row;
-        }
-
-        @Override
-        public boolean onTouch(View view, MotionEvent event) {
-            CheckBox categoryChosenCheckBox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_UP:
-                    TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
-                    TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
-
-                    boolean newCheckedState = !categoryChosenCheckBox.isChecked();
-                    categoryChosenCheckBox.setChecked(newCheckedState);
-
-                    String categoryName = nameLabel.getText().toString();
-                    if (newCheckedState) {
-                        chosenCategories.add(categoryName);
-                    } else {
-                        chosenCategories.remove(categoryName);
-                    }
-
-                    nameLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
-                    sizeLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
-                    updateLayout();
-                    break;
-            }
-            return true;
         }
 
     }
