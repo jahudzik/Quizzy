@@ -2,6 +2,7 @@ package pl.jahu.quizzy.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import pl.jahu.quizzy.app.R;
@@ -65,7 +66,9 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // TODO
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new SettingsFragment()).addToBackStack(null)
+                        .commit();
                 break;
             case R.id.action_finish:
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
@@ -113,9 +116,16 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
                 chosenQuestions.add(question);
             }
         }
-        QuizFragment quizFragment = QuizFragment.newInstance(chosenQuestions);
+
+        // limit number of questions based on user preference
+        Collections.shuffle(chosenQuestions);
+        String prefferedQuizSize = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_quiz_size", null);
+        if (prefferedQuizSize != null && !prefferedQuizSize.equals(getResources().getString(R.string.pref_quiz_size_value_all))) {
+            chosenQuestions = chosenQuestions.subList(0, Integer.valueOf(prefferedQuizSize));
+        }
 
         invalidateOptionsMenu();
+        QuizFragment quizFragment = QuizFragment.newInstance(chosenQuestions);
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, quizFragment)
                 .commit();
