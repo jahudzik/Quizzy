@@ -199,16 +199,15 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             View row = super.getView(position, convertView, parent);
             TextView nameLabel = (TextView)row.findViewById(R.id.categoryNameLabel);
             TextView sizeLabel = (TextView)row.findViewById(R.id.categorySizeLabel);
-            CheckBox categoryChosenCheckBox = (CheckBox) row.findViewById(R.id.categoryChosenCheckBox);
+            CheckBox checkbox = (CheckBox) row.findViewById(R.id.categoryChosenCheckBox);
+
             String category = getItem(position);
-            int questionsCount = categoriesSizes.get(category)[actualLevel];
+            boolean checked = chosenCategories.contains(category);
             nameLabel.setText(category);
-            sizeLabel.setText(String.valueOf(questionsCount));
-            if (chosenCategories.contains(category)) {
-                nameLabel.setTextColor(MARK_COLOR);
-                sizeLabel.setTextColor(MARK_COLOR);
-                categoryChosenCheckBox.setChecked(true);
-            }
+            nameLabel.setTextColor(checked ? MARK_COLOR : Color.BLACK);
+            sizeLabel.setText(String.valueOf((int) categoriesSizes.get(category)[actualLevel]));
+            sizeLabel.setTextColor(checked ? MARK_COLOR : Color.BLACK);
+            checkbox.setChecked(checked);
             return row;
         }
 
