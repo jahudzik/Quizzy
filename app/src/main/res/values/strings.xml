@@ -18,5 +18,8 @@
     <string name="repeat">Repeat</string>
     <string name="action_finish">Finish</string>
     <string name="action_settings">Settings</string>
+    <string name="pref_quiz_size_title">Quiz size</string>
+    <string name="pref_quiz_size_summary">Number of questions in a single quiz</string>
+    <string name="pref_quiz_size_value_all">All questions</string>
 
 </resources>

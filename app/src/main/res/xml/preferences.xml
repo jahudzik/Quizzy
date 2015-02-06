@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+            android:key="preference_quiz_size"
+            android:title="@string/pref_quiz_size_summary"
+            android:summary="%s"
+            android:entries="@array/quiz_size_entries"
+            android:entryValues="@array/quiz_size_entries"
+            android:defaultValue="20"/>
+
+</PreferenceScreen>
