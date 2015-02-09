@@ -121,7 +121,10 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         Collections.shuffle(chosenQuestions);
         String prefferedQuizSize = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_quiz_size", null);
         if (prefferedQuizSize != null && !prefferedQuizSize.equals(getResources().getString(R.string.pref_quiz_size_value_all))) {
-            chosenQuestions = chosenQuestions.subList(0, Integer.valueOf(prefferedQuizSize));
+            int size = Integer.valueOf(prefferedQuizSize);
+            if (size < chosenQuestions.size()) {
+                chosenQuestions = chosenQuestions.subList(0, size);
+            }
         }
 
         invalidateOptionsMenu();
