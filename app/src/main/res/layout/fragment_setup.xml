@@ -15,12 +15,39 @@
             android:layout_height="0dp"
             android:layout_weight="7" />
 
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <CheckBox
+                android:id="@+id/totalCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/total"
+                android:id="@+id/categoryNameLabel"
+                android:layout_toRightOf="@+id/totalCheckbox"
+                android:textStyle="bold"/>
+        <TextView
+                android:id="@+id/totalCountLabel"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/sample_number"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"/>
+    </RelativeLayout>
+
     <SeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/difficultBar"
             android:max="3"
             android:progress="0"/>
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"

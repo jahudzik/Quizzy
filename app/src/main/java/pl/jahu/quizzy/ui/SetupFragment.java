@@ -21,6 +21,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
     public static final String DIFF_LEVEL_BUNDLE_KEY = "diffLevel";
     public static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
+    public static final String ALL_CATEGORIES_CHOSEN_BUNDLE_KEY = "allCategoriesChosen";
     private static final String CATEGORIES_BUNDLE_KEY = "categories";
 
     private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25};
@@ -35,6 +36,8 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
     private TextView levelInfoLabel;
     private Button startButton;
+    private CheckBox totalCheckbox;
+    private TextView totalCountLabel;
 
     protected static SetupFragment newInstance(Map<String, Integer[]> categoriesSizes) {
         SetupFragment fragment = new SetupFragment();
@@ -72,10 +75,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setup, container, false);
 
+        totalCheckbox = (CheckBox) rootView.findViewById(R.id.totalCheckbox);
+        totalCountLabel = (TextView) rootView.findViewById(R.id.totalCountLabel);
+
         if (savedInstanceState != null) {
             // handling configuration changes
             actualLevel = savedInstanceState.getInt(DIFF_LEVEL_BUNDLE_KEY);
             chosenCategories.addAll(savedInstanceState.getStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY));
+            totalCheckbox.setChecked(savedInstanceState.getBoolean(ALL_CATEGORIES_CHOSEN_BUNDLE_KEY));
         } else {
             if (getArguments().containsKey(DIFF_LEVEL_BUNDLE_KEY) && getArguments().containsKey(CHOSEN_CATEGORIES_BUNDLE_KEY)) {
                 // fragment may be initialized with already chosen difficulty level and chosen categories
@@ -101,11 +108,22 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             }
         });
 
+        totalCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosenCategories.addAll(categoriesSizes.keySet());
+                } else {
+                    chosenCategories.clear();
+                }
+                updateLayout();
+            }
+        });
+
         SeekBar difficultBar = (SeekBar) rootView.findViewById(R.id.difficultBar);
         difficultBar.setProgress(actualLevel);
         difficultBar.setOnSeekBarChangeListener(this);
 
-        updateLayout();
         return rootView;
     }
 
@@ -120,14 +138,30 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         super.onSaveInstanceState(outState);
         outState.putInt(DIFF_LEVEL_BUNDLE_KEY, actualLevel);
         outState.putStringArrayList(CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
+        outState.putBoolean(ALL_CATEGORIES_CHOSEN_BUNDLE_KEY, totalCheckbox.isChecked());
     }
 
     private void updateLayout() {
+        // for each visible list item: set checkbox and text color
+        ListView listView = getListView();
+        for (int i = 0; i < listView.getChildCount(); i++) {
+            View view = listView.getChildAt(i);
+            CheckBox checkbox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
+            TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
+            TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
+
+            boolean chosen = chosenCategories.contains(nameLabel.getText().toString());
+            checkbox.setChecked(chosen);
+            nameLabel.setTextColor(chosen ? MARK_COLOR : Color.BLACK);
+            sizeLabel.setTextColor(chosen ? MARK_COLOR : Color.BLACK);
+        }
+
         // count total number of questions chosen
         int totalQuestionsNumber = 0;
         for (String chosenCategory : chosenCategories) {
             totalQuestionsNumber += categoriesSizes.get(chosenCategory)[actualLevel];
         }
+        totalCountLabel.setText(String.valueOf(totalQuestionsNumber));
 
         // update start button label and enable/disable it
         if (totalQuestionsNumber > 0) {
@@ -171,7 +205,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     public void onListItemClick(ListView l, View view, int position, long id) {
         CheckBox checkbox = (CheckBox) view.findViewById(R.id.categoryChosenCheckBox);
         TextView nameLabel = (TextView) view.findViewById(R.id.categoryNameLabel);
-        TextView sizeLabel = (TextView) view.findViewById(R.id.categorySizeLabel);
 
         boolean newCheckedState = !checkbox.isChecked();
         checkbox.setChecked(newCheckedState);
@@ -183,8 +216,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
             chosenCategories.remove(categoryName);
         }
 
-        nameLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
-        sizeLabel.setTextColor((newCheckedState) ? MARK_COLOR : Color.BLACK);
         updateLayout();
     }
 

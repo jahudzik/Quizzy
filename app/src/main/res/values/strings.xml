@@ -5,6 +5,7 @@
     <string name="start_button_label">START\n(# questions)</string>
     <string name="start_button_empty_label">No questions selected</string>
     <string name="sample_number">0</string>
+    <string name="total">TOTAL</string>
     <string name="sample_text">Sample text</string>
     <string name="correct_answer">Correct</string>
     <string name="incorrect_answer">Wrong</string>
