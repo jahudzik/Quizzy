@@ -46,6 +46,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
                     .add(R.id.container, setupFragment)
                     .commit();
         }
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
     @Override
