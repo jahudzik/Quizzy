@@ -234,7 +234,6 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
             String category = getItem(position);
             boolean checked = chosenCategories.contains(category);
-            nameLabel.setText(category);
             nameLabel.setTextColor(checked ? MARK_COLOR : Color.BLACK);
             sizeLabel.setText(String.valueOf((int) categoriesSizes.get(category)[actualLevel]));
             sizeLabel.setTextColor(checked ? MARK_COLOR : Color.BLACK);
