@@ -35,7 +35,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         } else {
             questions = savedInstanceState.getParcelableArrayList(QUESTIONS_BUNDLE_KEY);
             chosenCategories = new HashSet<>(savedInstanceState.getStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY));
-            chosenLevel = savedInstanceState.getInt(SetupFragment.DIFF_LEVEL_BUNDLE_KEY);
+            chosenLevel = savedInstanceState.getInt(SetupFragment.CHOSEN_LEVEL_BUNDLE_KEY);
         }
 
         SetupFragment setupFragment = SetupFragment.newInstance(getCategoriesSizes(questions));
@@ -53,7 +53,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SetupFragment.DIFF_LEVEL_BUNDLE_KEY, chosenLevel);
+        outState.putInt(SetupFragment.CHOSEN_LEVEL_BUNDLE_KEY, chosenLevel);
         outState.putStringArrayList(SetupFragment.CHOSEN_CATEGORIES_BUNDLE_KEY, new ArrayList<>(chosenCategories));
         outState.putParcelableArrayList(QUESTIONS_BUNDLE_KEY, new ArrayList<>(questions));
     }
