@@ -3,8 +3,10 @@ package pl.jahu.quizzy.ui;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,12 @@ import java.util.*;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener {
+public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String CHOSEN_LEVEL_BUNDLE_KEY = "levelChosen";
     public static final String CHOSEN_CATEGORIES_BUNDLE_KEY = "categoriesChosen";
     private static final String ALL_CATEGORIES_BUNDLE_KEY = "categoriesAll";
+    private static final String QUIZ_SIZE_PREFERENCE = "preference_quiz_size";
 
     private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25};
     private static final int[] LEVEL_COLORS = {Color.BLACK, Color.GREEN, Color.rgb(255, 179, 0), Color.RED};
@@ -33,6 +36,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private Map<String, Integer[]> categoriesSizes;
     private final Set<String> chosenCategories;
     private int actualLevel;
+    private String preferredQuizSize;
 
     private TextView levelInfoLabel;
     private CheckBox totalCheckbox;
@@ -70,6 +74,9 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement SetupFragment.OnFragmentInteractionListener");
         }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        preferredQuizSize = sharedPreferences.getString(QUIZ_SIZE_PREFERENCE, null);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -109,7 +116,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentListener.onStartQuizButtonClicked(chosenCategories, actualLevel);
+                fragmentListener.onStartQuizButtonClicked(chosenCategories, actualLevel, preferredQuizSize);
             }
         });
 
@@ -151,6 +158,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     public void onDetach() {
         super.onDetach();
         fragmentListener = null;
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -191,7 +199,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
 
         // update start button label and enable/disable it
         if (totalQuestionsNumber > 0) {
-            startButton.setText(String.valueOf(getResources().getText(R.string.start_button_label)).replace("#", String.valueOf(totalQuestionsNumber)));
+            if (preferredQuizSize.equals(getResources().getText(R.string.pref_quiz_size_value_all)) || Integer.parseInt(preferredQuizSize) >= totalQuestionsNumber) {
+                startButton.setText(String.valueOf(getResources().getText(R.string.start_button_all_label))
+                        .replace("#", String.valueOf(totalQuestionsNumber)));
+            } else {
+                startButton.setText(String.valueOf(getResources().getText(R.string.start_button_limited_label))
+                        .replace("@", preferredQuizSize)
+                        .replace("#", String.valueOf(totalQuestionsNumber)));
+            }
             startButton.setEnabled(true);
         } else {
             startButton.setText(getResources().getText(R.string.start_button_empty_label));
@@ -271,6 +286,14 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
         updateLayout(true);
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(QUIZ_SIZE_PREFERENCE)) {
+            preferredQuizSize = sharedPreferences.getString(key, null);
+            updateLayout(false);
+        }
+    }
+
     private class CategoryListAdapter extends ArrayAdapter<String> {
 
         public CategoryListAdapter(Context context, List<String> items) {
@@ -296,7 +319,7 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     }
 
     public interface OnFragmentInteractionListener {
-        public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel);
+        public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel, String preferredQuizSize);
     }
 
 }

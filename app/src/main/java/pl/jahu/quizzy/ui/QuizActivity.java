@@ -108,7 +108,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
     }
 
     @Override
-    public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel) {
+    public void onStartQuizButtonClicked(Set<String> chosenCategories, int chosenLevel, String preferredQuizSize) {
         this.chosenCategories = chosenCategories;
         this.chosenLevel = chosenLevel;
 
@@ -121,9 +121,8 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
 
         // limit number of questions based on user preference
         Collections.shuffle(chosenQuestions);
-        String prefferedQuizSize = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_quiz_size", null);
-        if (prefferedQuizSize != null && !prefferedQuizSize.equals(getResources().getString(R.string.pref_quiz_size_value_all))) {
-            int size = Integer.valueOf(prefferedQuizSize);
+        if (preferredQuizSize != null && !preferredQuizSize.equals(getResources().getString(R.string.pref_quiz_size_value_all))) {
+            int size = Integer.valueOf(preferredQuizSize);
             if (size < chosenQuestions.size()) {
                 chosenQuestions = chosenQuestions.subList(0, size);
             }

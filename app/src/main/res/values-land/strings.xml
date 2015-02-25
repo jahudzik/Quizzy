@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="start_button_label">START (# questions)</string>
+    <string name="start_button_all_label">START (# questions)</string>
+    <string name="start_button_limited_label">START (@ of # questions)</string>
 </resources>
