@@ -87,7 +87,7 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
         for (Question question : questions) {
             String category = question.getCategory();
             if (!result.containsKey(category)) {
-                result.put(category, new Integer[]{0, 0, 0, 0});
+                result.put(category, new Integer[]{0, 0, 0, 0, 0});
             }
             Integer[] sizes = result.get(category);
             sizes[Constants.DIFFICULTY_LEVEL_ALL]++;
@@ -100,6 +100,9 @@ public class QuizActivity extends BaseActivity implements SetupFragment.OnFragme
             }
             if (difficultValue < 25) {
                 sizes[Constants.DIFFICULTY_LEVEL_BELOW_25]++;
+            }
+            if (question.getOverallAnswers() == 0) {
+                sizes[Constants.DIFFICULTY_LEVEL_UNANSWERED]++;
             }
             result.put(category, sizes);
         }

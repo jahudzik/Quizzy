@@ -26,8 +26,8 @@ public class SetupFragment extends ListFragment implements SeekBar.OnSeekBarChan
     private static final String ALL_CATEGORIES_BUNDLE_KEY = "categoriesAll";
     private static final String QUIZ_SIZE_PREFERENCE = "preference_quiz_size";
 
-    private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25};
-    private static final int[] LEVEL_COLORS = {Color.BLACK, Color.GREEN, Color.rgb(255, 179, 0), Color.RED};
+    private static final int[] LEVEL_DESCRIPTIONS = {R.string.diff_level_desc_all, R.string.diff_level_desc_75, R.string.diff_level_desc_50, R.string.diff_level_desc_25, R.string.diff_level_desc_0};
+    private static final int[] LEVEL_COLORS = {Color.BLACK, Color.GREEN, Color.rgb(255, 179, 0), Color.RED, Color.BLACK};
     private static final int MARK_COLOR = Color.rgb(81, 171, 240);
 
     private OnFragmentInteractionListener fragmentListener;

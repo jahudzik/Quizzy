@@ -16,6 +16,7 @@
     <string name="diff_level_desc_75" tools:ignore="StringFormatInvalid">Questions with less than 75% correct answers</string>
     <string name="diff_level_desc_50" tools:ignore="StringFormatInvalid">Questions with less than 50% correct answers</string>
     <string name="diff_level_desc_25" tools:ignore="StringFormatInvalid">Questions with less than 25% correct answers</string>
+    <string name="diff_level_desc_0" tools:ignore="StringFormatInvalid">Unanswered questions only</string>
     <string name="summary">Summary</string>
     <string name="repeat">Repeat</string>
     <string name="action_finish">Finish</string>

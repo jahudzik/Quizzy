@@ -107,6 +107,8 @@ public class Question implements Parcelable {
                 return (diffValue < 50);
             case Constants.DIFFICULTY_LEVEL_BELOW_25:
                 return (diffValue < 25);
+            case Constants.DIFFICULTY_LEVEL_UNANSWERED:
+                return (overallAnswers == 0);
             default:
                 return false;
         }

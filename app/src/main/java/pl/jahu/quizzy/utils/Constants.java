@@ -10,5 +10,6 @@ public class Constants {
     public static final int DIFFICULTY_LEVEL_BELOW_75 = 1;
     public static final int DIFFICULTY_LEVEL_BELOW_50 = 2;
     public static final int DIFFICULTY_LEVEL_BELOW_25 = 3;
+    public static final int DIFFICULTY_LEVEL_UNANSWERED = 4;
 
 }
